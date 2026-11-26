@@ -1,7 +1,4 @@
-"use client";
-
-import React, { Suspense } from "react";
-import dynamic from "next/dynamic";
+import React from "react";
 import {
   QrCode,
   Printer,
@@ -19,25 +16,6 @@ import {
   Smartphone,
 } from "lucide-react";
 
-// Lazy-load the generative canvas cover scene (client-only, no SSR needed)
-const ProjectCoverScene = dynamic(
-  () =>
-    import("@/components/scenes/ProjectCoverScene").then(
-      (m) => m.ProjectCoverScene
-    ),
-  { ssr: false, loading: () => <div className="absolute inset-0 bg-[#111318]" /> }
-);
-
-// Map project visual types to cover scene types
-type CoverSceneType =
-  | "restaurant"
-  | "chatbot"
-  | "lexassist"
-  | "elearning"
-  | "voice-agent"
-  | "rpa-workflow"
-  | "rpa-platform";
-
 interface ProjectVisualProps {
   type:
     | "restaurant"
@@ -51,15 +29,8 @@ interface ProjectVisualProps {
   className?: string;
 }
 
-function toCoverType(type: ProjectVisualProps["type"]): CoverSceneType {
-  if (type === "chatbotpro") return "chatbot";
-  return type;
-}
-
 /**
- * Dual-layer project visuals for KartagoTech's portfolio:
- * Layer 1 — Generative canvas cinematic scene background
- * Layer 2 — Swiss-style editorial UI mockup overlay
+ * Editorial, Swiss-styled system previews for KartagoTech's portfolio projects.
  */
 export function ProjectVisual({
   type,
@@ -70,18 +41,8 @@ export function ProjectVisual({
     <div
       className={`relative w-full aspect-[16/10] bg-[#111318] border border-[#111318]/15 overflow-hidden select-none group ${className}`}
     >
-      {/* Layer 1: Cinematic generative background */}
-      <div className="absolute inset-0 z-0">
-        <Suspense fallback={<div className="absolute inset-0 bg-[#111318]" />}>
-          <ProjectCoverScene type={toCoverType(type)} className="w-full h-full" />
-        </Suspense>
-      </div>
-
-      {/* Layer 2: Dark overlay for UI legibility */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#111318]/80 via-[#111318]/40 to-[#111318]/60 pointer-events-none" />
-
       {/* Top status bar */}
-      <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-[#111318]/80 backdrop-blur-sm">
+      <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-[#111318]">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8291EA]" />
           <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] text-white/75">
@@ -89,11 +50,11 @@ export function ProjectVisual({
           </span>
         </div>
         <span className="text-[10px] font-mono text-white/40 hidden sm:inline">
-          KARTAGOTECH // ARCHITECTURE
+          KARTAGOTECH // SYSTEM
         </span>
       </div>
 
-      {/* Visual Body — UI mockup floats above cinematic background */}
+      {/* Visual Body */}
       <div className="relative z-10 h-[calc(100%-41px)] p-4 sm:p-6 md:p-8 flex items-center justify-center">
         {type === "restaurant" && <RestaurantMockup />}
         {type === "chatbotpro" && <ChatbotProMockup />}

@@ -7,8 +7,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import { projects } from "@/data/projects";
 import { ProjectVisual } from "@/components/ProjectVisual";
 import { FadeIn } from "@/components/MotionPrimitives";
-import { HeroStory } from "@/components/storytelling/HeroStory";
-import { TransformationStory } from "@/components/storytelling/TransformationStory";
+import { CommercialStory } from "@/components/storytelling/CommercialStory";
 import { ExpertiseStory } from "@/components/storytelling/ExpertiseStory";
 import { ApproachStory } from "@/components/storytelling/ApproachStory";
 import { FinaleStory } from "@/components/storytelling/FinaleStory";
@@ -50,14 +49,13 @@ export default function HomePage({ params }: { params: { lang: string } }) {
 
   return (
     <>
-      {/* 1. OPENING — "Your business can do more with technology." */}
-      <HeroStory locale={locale} dict={dict} />
+      {/* 1. CONTINUOUS 6-SCENE CINEMATIC COMMERCIAL */}
+      <CommercialStory locale={locale} dict={dict} />
 
-      {/* 2. THE 5-CHAPTER 3D BUSINESS TRANSFORMATION STORY */}
-      <TransformationStory dict={dict.home.story} />
-
-      {/* 3. OUR EXPERTISE — Off-White Editorial + Interactive 3D Metaphors */}
-      <ExpertiseStory locale={locale} dict={dict.home.services} />
+      {/* 2. KARTAGOTECH SERVICES — Clean Off-White Editorial */}
+      <div id="services-section">
+        <ExpertiseStory locale={locale} dict={dict.home.services} />
+      </div>
 
       {/* 4. SELECTED WORK — White Architectural Showcase */}
       <section className="py-20 sm:py-28 lg:py-32 border-b border-[#111318]/12 bg-white">
