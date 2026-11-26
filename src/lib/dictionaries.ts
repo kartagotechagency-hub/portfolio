@@ -24,8 +24,15 @@ export interface Dictionary {
       supporting: string;
       primaryCta: string;
       secondaryCta: string;
+      exploreCta: string;
       location: string;
       scrollLabel: string;
+    };
+    vision: {
+      label: string;
+      headline: string;
+      body: string;
+      stages: string[];
     };
     selectedWork: {
       label: string;
@@ -230,8 +237,15 @@ const en: Dictionary = {
         "We design and build digital solutions that help ambitious businesses move forward.",
       primaryCta: "Start a project",
       secondaryCta: "Explore our work",
+      exploreCta: "Explore our world",
       location: "France · Worldwide",
       scrollLabel: "Scroll",
+    },
+    vision: {
+      label: "01 — The Vision",
+      headline: "Every great solution starts with an idea.",
+      body: "From raw intuition to structured digital architecture, we shape abstract ambitions into resilient software, intelligent automation, and refined user experiences.",
+      stages: ["Concept", "Architecture", "Execution"],
     },
     selectedWork: {
       label: "01 — Selected Work",
@@ -299,25 +313,25 @@ const en: Dictionary = {
           number: "02",
           title: "Strategize",
           description:
-            "We define architecture, system boundaries, UX flows, and a pragmatic delivery roadmap before writing code.",
+            "We define architecture, system boundaries, and a pragmatic delivery roadmap before writing code.",
         },
         {
           number: "03",
-          title: "Build",
+          title: "Design",
           description:
-            "Iterative, type-safe engineering with clean interfaces, automated checks, and continuous stakeholder visibility.",
+            "Editorial interfaces, clear information hierarchy, and intentional user flows crafted for clarity.",
         },
         {
           number: "04",
-          title: "Launch",
+          title: "Build",
           description:
-            "Controlled deployment with performance verification, SEO readiness, security hardening, and team onboarding.",
+            "Iterative, type-safe engineering with automated checks, performance tuning, and continuous visibility.",
         },
         {
           number: "05",
-          title: "Support",
+          title: "Launch",
           description:
-            "Ongoing maintenance, monitoring, and structured evolution as your business requirements grow.",
+            "Controlled production deployment with SEO readiness, security hardening, and ongoing support.",
         },
       ],
     },
@@ -349,8 +363,8 @@ const en: Dictionary = {
     },
     contactCta: {
       label: "05 — Next Step",
-      headline: "Have an idea? Let's build it.",
-      button: "Start a conversation",
+      headline: "Let's build what's next.",
+      button: "Start a project",
     },
   },
   servicesPage: {
@@ -715,8 +729,15 @@ const fr: Dictionary = {
         "Nous concevons et développons des solutions digitales qui permettent aux entreprises ambitieuses d'aller plus loin.",
       primaryCta: "Démarrer un projet",
       secondaryCta: "Découvrir nos projets",
+      exploreCta: "Explorer notre univers",
       location: "France · International",
       scrollLabel: "Défiler",
+    },
+    vision: {
+      label: "01 — La Vision",
+      headline: "Chaque grande solution commence par une idée.",
+      body: "De l'intuition brute à l'architecture numérique structurée, nous transformons des ambitions abstraites en logiciels fiables, automatisations intelligentes et expériences maîtrisées.",
+      stages: ["Concept", "Architecture", "Exécution"],
     },
     selectedWork: {
       label: "01 — Projets sélectionnés",
@@ -784,25 +805,25 @@ const fr: Dictionary = {
           number: "02",
           title: "Stratégie",
           description:
-            "Nous définissons l'architecture, le périmètre système, les parcours UX et une feuille de route pragmatique avant de coder.",
+            "Nous définissons l'architecture, le périmètre système et une feuille de route pragmatique avant de coder.",
         },
         {
           number: "03",
-          title: "Construire",
+          title: "Design",
           description:
-            "Développement itératif et typé avec des interfaces soignées, des contrôles automatisés et une visibilité continue.",
+            "Interfaces éditoriales, hiérarchie claire de l'information et parcours utilisateurs pensés pour la lisibilité.",
         },
         {
           number: "04",
-          title: "Déployer",
+          title: "Construire",
           description:
-            "Mise en production maîtrisée avec validation des performances, conformité SEO, sécurité et prise en main par vos équipes.",
+            "Développement itératif et typé avec contrôles automatisés, optimisation des performances et visibilité continue.",
         },
         {
           number: "05",
-          title: "Accompagner",
+          title: "Déployer",
           description:
-            "Maintenance continue, supervision et évolutions structurées au rythme de la croissance de votre activité.",
+            "Mise en production maîtrisée avec conformité SEO, sécurisation et accompagnement durable.",
         },
       ],
     },
@@ -834,8 +855,8 @@ const fr: Dictionary = {
     },
     contactCta: {
       label: "05 — Prochaine étape",
-      headline: "Une idée en tête ? Construisons-la.",
-      button: "Engager la conversation",
+      headline: "Construisons la suite.",
+      button: "Démarrer un projet",
     },
   },
   servicesPage: {
