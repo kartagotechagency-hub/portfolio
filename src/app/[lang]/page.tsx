@@ -48,103 +48,101 @@ export default function HomePage({ params }: { params: { lang: string } }) {
 
   return (
     <>
-      {/* 1. CONTINUOUS 6-SCENE CINEMATIC COMMERCIAL */}
+      {/* 1. THE MAIN EXPERIENCE — 5-Chapter Cinematic Business Transformation Film */}
       <CommercialStory locale={locale} dict={dict} />
 
-      {/* 2. KARTAGOTECH SERVICES — Clean Off-White Editorial */}
-      <div id="services-section">
+      {/* 2. COMPACT AGENCY PRESENTATION (After Chapter 05 concludes) */}
+      <div id="agency-overview">
+        {/* A. Services */}
         <ExpertiseStory locale={locale} dict={dict.home.services} />
-      </div>
 
-      {/* 4. SELECTED WORK — White Architectural Showcase */}
-      <section className="py-20 sm:py-28 lg:py-32 border-b border-[#111318]/12 bg-white">
-        <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
-          <FadeIn>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 sm:mb-16">
-              <div>
-                <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-3">
-                  {dict.home.selectedWork.label}
-                </p>
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-medium tracking-editorial leading-[1.1] text-[#111318] max-w-2xl">
-                  {dict.home.selectedWork.title}
-                </h2>
+        {/* B. Selected Work (Clean Editorial List — Detailed Previews live inside Case Studies) */}
+        <section className="py-16 sm:py-20 border-b border-[#111318]/12 bg-white">
+          <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
+            <FadeIn>
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
+                <div>
+                  <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-2.5">
+                    {dict.home.selectedWork.label}
+                  </p>
+                  <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-editorial leading-[1.1] text-[#111318] max-w-2xl">
+                    {dict.home.selectedWork.title}
+                  </h2>
+                </div>
+                <Link
+                  href={getLocalizedPath("/work", locale)}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] hover:text-[#8291EA] transition-colors group shrink-0"
+                >
+                  <span>{dict.home.selectedWork.viewAll}</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
               </div>
-              <Link
-                href={getLocalizedPath("/work", locale)}
-                className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] hover:text-[#8291EA] transition-colors group shrink-0"
-              >
-                <span>{dict.home.selectedWork.viewAll}</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          </FadeIn>
+            </FadeIn>
 
-          <div className="divide-y divide-[#111318]/12 border-t border-b border-[#111318]/12">
-            {projects.map((project, idx) => (
-              <FadeIn key={project.slug} delay={Math.min(idx * 0.04, 0.2)}>
-                <article className="py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center group">
-                  <div className="lg:col-span-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-xs font-mono text-[#8291EA]">
-                        {project.index}
-                      </span>
-                      <span className="text-xs font-mono uppercase tracking-[0.12em] text-[#777777]">
-                        {project.category[locale]}
-                      </span>
+            <div className="divide-y divide-[#111318]/12 border-t border-b border-[#111318]/12">
+              {projects.map((project, idx) => (
+                <FadeIn key={project.slug} delay={Math.min(idx * 0.03, 0.18)}>
+                  <article className="py-6 sm:py-7 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center group">
+                    <div className="lg:col-span-4">
+                      <div className="flex items-center gap-3 mb-1.5">
+                        <span className="text-xs font-mono text-[#8291EA]">
+                          {project.index}
+                        </span>
+                        <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[#777777]">
+                          {project.category[locale]}
+                        </span>
+                      </div>
+                      <h3 className="font-display text-xl sm:text-2xl font-medium tracking-tight text-[#111318]">
+                        <Link
+                          href={getLocalizedPath(`/work/${project.slug}`, locale)}
+                          className="hover:text-[#8291EA] transition-colors"
+                        >
+                          {project.title[locale]}
+                        </Link>
+                      </h3>
                     </div>
-                    <h3 className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-[#111318]">
+
+                    <div className="lg:col-span-5">
+                      <p className="text-[#777777] text-sm sm:text-base leading-relaxed">
+                        {project.shortDescription[locale]}
+                      </p>
+                    </div>
+
+                    <div className="lg:col-span-3 flex lg:flex-col lg:items-end justify-between gap-2">
+                      <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[#111318]/60">
+                        {project.status[locale]}
+                      </span>
                       <Link
                         href={getLocalizedPath(`/work/${project.slug}`, locale)}
-                        className="hover:text-[#8291EA] transition-colors"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] border-b border-[#111318]/30 pb-0.5 hover:border-[#8291EA] hover:text-[#8291EA] transition-colors group/link shrink-0"
                       >
-                        {project.title[locale]}
+                        <span>{dict.home.selectedWork.exploreCase}</span>
+                        <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                       </Link>
-                    </h3>
-                  </div>
-
-                  <div className="lg:col-span-5">
-                    <p className="text-[#777777] text-base leading-relaxed">
-                      {project.shortDescription[locale]}
-                    </p>
-                  </div>
-
-                  <div className="lg:col-span-3 flex lg:flex-col lg:items-end justify-between gap-3">
-                    <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[#111318]/60">
-                      {project.status[locale]}
-                    </span>
-                    <Link
-                      href={getLocalizedPath(`/work/${project.slug}`, locale)}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] border-b border-[#111318]/30 pb-1 hover:border-[#8291EA] hover:text-[#8291EA] transition-colors group/link shrink-0"
-                    >
-                      <span>{dict.home.selectedWork.exploreCase}</span>
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                    </Link>
-                  </div>
-                </article>
-              </FadeIn>
-            ))}
+                    </div>
+                  </article>
+                </FadeIn>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 5. OUR APPROACH — Scroll-Triggered Sequence */}
-      <ApproachStory dict={dict.home.approach} />
+        {/* C. Our Approach */}
+        <ApproachStory dict={dict.home.approach} />
 
-      {/* ABOUT BRIDGE — Clean Off-White */}
-      <section className="py-20 sm:py-28 bg-[#F5F5F2] border-b border-[#111318]/12">
-        <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        {/* D. About KartagoTech */}
+        <section className="py-16 sm:py-20 bg-[#F5F5F2] border-b border-[#111318]/12">
+          <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <FadeIn className="lg:col-span-6">
-              <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-3">
+              <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-2.5">
                 {dict.home.about.label}
               </p>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-medium tracking-editorial leading-[1.1] text-[#111318] mb-8">
+              <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-editorial leading-[1.1] text-[#111318] mb-5">
                 {dict.home.about.title}
               </h2>
-              <div className="space-y-5 text-base sm:text-lg text-[#777777] leading-relaxed mb-8">
-                <p>{dict.home.about.paragraph1}</p>
-                <p>{dict.home.about.paragraph2}</p>
-              </div>
+              <p className="text-base text-[#777777] leading-relaxed mb-6">
+                {dict.home.about.paragraph1}
+              </p>
               <Link
                 href={getLocalizedPath("/about", locale)}
                 className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] border-b border-[#111318]/30 pb-1 hover:border-[#8291EA] hover:text-[#8291EA] transition-colors group"
@@ -154,24 +152,28 @@ export default function HomePage({ params }: { params: { lang: string } }) {
               </Link>
             </FadeIn>
 
-            <div className="lg:col-span-6 flex flex-col justify-center divide-y divide-[#111318]/12 border-t border-b border-[#111318]/12">
+            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {dict.home.about.pillars.map((pillar, idx) => (
-                <FadeIn key={pillar.title} delay={idx * 0.06} className="py-7">
-                  <h3 className="font-display text-xl font-medium text-[#111318] mb-2">
+                <FadeIn
+                  key={pillar.title}
+                  delay={idx * 0.05}
+                  className="bg-white border border-[#111318]/12 p-6"
+                >
+                  <h3 className="font-display text-lg font-medium text-[#111318] mb-2">
                     {pillar.title}
                   </h3>
-                  <p className="text-[#777777] text-base leading-relaxed">
+                  <p className="text-sm text-[#777777] leading-relaxed">
                     {pillar.description}
                   </p>
                 </FadeIn>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 6. FINAL SCENE — Cinematic 3D Transition to Contact */}
-      <FinaleStory locale={locale} dict={dict} />
+        {/* E. Final Contact CTA */}
+        <FinaleStory locale={locale} dict={dict} />
+      </div>
     </>
   );
 }
