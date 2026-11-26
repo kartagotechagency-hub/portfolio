@@ -28,6 +28,17 @@ export interface Dictionary {
       location: string;
       scrollLabel: string;
     };
+    story: {
+      sectionLabel: string;
+      chapters: Array<{
+        index: string;
+        tag: string;
+        title: string;
+        headline: string;
+        body: string;
+        highlights: string[];
+      }>;
+    };
     vision: {
       label: string;
       headline: string;
@@ -231,15 +242,80 @@ const en: Dictionary = {
   home: {
     hero: {
       eyebrow: "KARTAGOTECH AGENCY",
-      headlineLine1: "Ideas into digital.",
-      headlineLine2: "Impact into business.",
+      headlineLine1: "Your business can do",
+      headlineLine2: "more with technology.",
       supporting:
-        "We design and build digital solutions that help ambitious businesses move forward.",
+        "From manual bottlenecks to connected digital operations—see how intelligent software, AI, and automation transform the way modern organizations work.",
       primaryCta: "Start a project",
       secondaryCta: "Explore our work",
-      exploreCta: "Explore our world",
+      exploreCta: "Experience the story",
       location: "France · Worldwide",
-      scrollLabel: "Scroll",
+      scrollLabel: "Scroll to transform",
+    },
+    story: {
+      sectionLabel: "Business Transformation Story",
+      chapters: [
+        {
+          index: "01",
+          tag: "THE CHALLENGE",
+          title: "Manual friction slows great teams down.",
+          headline: "Disconnected tools, repetitive work, missed opportunities.",
+          body: "Too many ambitious businesses still rely on fragmented spreadsheets, manual data entry, isolated software, and slow response workflows. Teams spend valuable hours on repetitive tasks while customer opportunities slip through the cracks.",
+          highlights: [
+            "Manual operations & data re-entry",
+            "Disconnected systems & silos",
+            "Missed customer response windows",
+          ],
+        },
+        {
+          index: "02",
+          tag: "THE OPPORTUNITY",
+          title: "Intelligence enters the workflow.",
+          headline: "AI, automation, and custom software connect your operations.",
+          body: "When intelligent software and automation are introduced around your real business logic, isolated tools begin communicating. Data flows cleanly, repetitive bottlenecks are bridged, and your systems start working as one.",
+          highlights: [
+            "Unified operational architecture",
+            "AI grounded in your business knowledge",
+            "Automated bridges between tools",
+          ],
+        },
+        {
+          index: "03",
+          tag: "THE TRANSFORMATION",
+          title: "Every layer of operations upgraded.",
+          headline: "AI assistants, automated workflows, custom software, and RPA.",
+          body: "AI assistants handle customer inquiries and internal research, RPA bots execute repetitive browser and document workflows, custom platforms streamline daily operations, and high-craft websites turn attention into action.",
+          highlights: [
+            "24/7 AI chat & voice assistants",
+            "RPA workflow & document automation",
+            "Tailored web & business software",
+          ],
+        },
+        {
+          index: "04",
+          tag: "THE GROWTH",
+          title: "Clarity creates room to scale.",
+          headline: "An organized business ready for new opportunities.",
+          body: "With cleaner operations and faster, more consistent customer experiences, your team regains focus for high-value work—unlocking stronger operational capacity and new room for sustainable growth.",
+          highlights: [
+            "Organized, reliable daily execution",
+            "Consistent customer experiences",
+            "Capacity for new opportunities",
+          ],
+        },
+        {
+          index: "05",
+          tag: "THE FUTURE",
+          title: "Your technology partner for what's next.",
+          headline: "KartagoTech builds the systems that move your business forward.",
+          body: "We partner with ambitious organizations across France and worldwide to design, engineer, and deploy the web platforms, custom software, AI solutions, and RPA systems that turn operational challenges into lasting capability.",
+          highlights: [
+            "End-to-end engineering partner",
+            "Web · Custom Software · AI · RPA",
+            "Built around your real operations",
+          ],
+        },
+      ],
     },
     vision: {
       label: "01 — The Vision",
@@ -723,15 +799,80 @@ const fr: Dictionary = {
   home: {
     hero: {
       eyebrow: "KARTAGOTECH AGENCY",
-      headlineLine1: "Des idées au digital.",
-      headlineLine2: "De l'impact à votre activité.",
+      headlineLine1: "Votre entreprise peut accomplir",
+      headlineLine2: "davantage grâce à la technologie.",
       supporting:
-        "Nous concevons et développons des solutions digitales qui permettent aux entreprises ambitieuses d'aller plus loin.",
+        "Des tâches manuelles aux opérations digitales connectées : découvrez comment les logiciels intelligents, l'IA et l'automatisation transforment le quotidien des organisations modernes.",
       primaryCta: "Démarrer un projet",
       secondaryCta: "Découvrir nos projets",
-      exploreCta: "Explorer notre univers",
+      exploreCta: "Découvrir l'histoire",
       location: "France · International",
-      scrollLabel: "Défiler",
+      scrollLabel: "Défiler pour transformer",
+    },
+    story: {
+      sectionLabel: "Histoire de Transformation Digitale",
+      chapters: [
+        {
+          index: "01",
+          tag: "LE DÉFI",
+          title: "La friction manuelle freine les équipes ambitieuses.",
+          headline: "Outils déconnectés, tâches répétitives, opportunités manquées.",
+          body: "Trop d'entreprises reposent encore sur des tableurs fragmentés, des saisies manuelles, des logiciels isolés et des réponses lentes. Les équipes perdent un temps précieux sur des tâches répétitives tandis que des opportunités clients s'échappent.",
+          highlights: [
+            "Opérations manuelles & ressaisies",
+            "Systèmes isolés sans connexion",
+            "Opportunités clients manquées",
+          ],
+        },
+        {
+          index: "02",
+          tag: "L'OPPORTUNITÉ",
+          title: "L'intelligence entre dans vos processus.",
+          headline: "L'IA, l'automatisation et le logiciel sur mesure connectent vos opérations.",
+          body: "Lorsque des logiciels intelligents et l'automatisation s'intègrent à votre logique métier, vos outils isolés commencent à communiquer. Les données circulent proprement et vos systèmes fonctionnent à l'unisson.",
+          highlights: [
+            "Architecture opérationnelle unifiée",
+            "IA ancrée dans votre base de connaissances",
+            "Passerelles automatisées entre outils",
+          ],
+        },
+        {
+          index: "03",
+          tag: "LA TRANSFORMATION",
+          title: "Chaque couche opérationnelle est modernisée.",
+          headline: "Assistants IA, workflows automatisés, logiciels sur mesure et RPA.",
+          body: "Les assistants IA répondent aux clients et accélèrent la recherche, les robots RPA exécutent les tâches répétitives, les logiciels sur mesure structurent le quotidien et les plateformes web convertissent l'attention en action.",
+          highlights: [
+            "Assistants IA conversationnels & vocaux",
+            "Automatisation RPA & traitement documentaire",
+            "Sites web & logiciels métier sur mesure",
+          ],
+        },
+        {
+          index: "04",
+          tag: "LA CROISSANCE",
+          title: "La clarté crée l'espace pour évoluer.",
+          headline: "Une entreprise organisée, prête pour de nouvelles opportunités.",
+          body: "Avec des opérations structurées et une expérience client fluide et réactive, vos équipes retrouvent du temps pour l'essentiel — ouvrant la voie à une capacité opérationnelle renforcée et à de nouvelles opportunités.",
+          highlights: [
+            "Exécution quotidienne organisée et fiable",
+            "Expérience client fluide et cohérente",
+            "Capacité libérée pour de nouveaux projets",
+          ],
+        },
+        {
+          index: "05",
+          tag: "L'AVENIR",
+          title: "Votre partenaire technologique pour la suite.",
+          headline: "KartagoTech conçoit les systèmes qui font avancer votre entreprise.",
+          body: "Nous accompagnons les organisations ambitieuses en France et à l'international pour concevoir, développer et déployer les plateformes web, logiciels sur mesure, solutions IA et systèmes RPA qui transforment vos défis en leviers durables.",
+          highlights: [
+            "Partenaire d'ingénierie de bout en bout",
+            "Web · Logiciels sur Mesure · IA · RPA",
+            "Construit autour de vos opérations réelles",
+          ],
+        },
+      ],
     },
     vision: {
       label: "01 — La Vision",

@@ -8,7 +8,7 @@ import { projects } from "@/data/projects";
 import { ProjectVisual } from "@/components/ProjectVisual";
 import { FadeIn } from "@/components/MotionPrimitives";
 import { HeroStory } from "@/components/storytelling/HeroStory";
-import { VisionStory } from "@/components/storytelling/VisionStory";
+import { TransformationStory } from "@/components/storytelling/TransformationStory";
 import { ExpertiseStory } from "@/components/storytelling/ExpertiseStory";
 import { ApproachStory } from "@/components/storytelling/ApproachStory";
 import { FinaleStory } from "@/components/storytelling/FinaleStory";
@@ -50,11 +50,11 @@ export default function HomePage({ params }: { params: { lang: string } }) {
 
   return (
     <>
-      {/* 1. THE INTRODUCTION — Cinematic Full-Screen 3D Hero */}
+      {/* 1. OPENING — "Your business can do more with technology." */}
       <HeroStory locale={locale} dict={dict} />
 
-      {/* 2. THE VISION — Scroll-Driven 3D Idea Lattice */}
-      <VisionStory dict={dict.home.vision} />
+      {/* 2. THE 5-CHAPTER 3D BUSINESS TRANSFORMATION STORY */}
+      <TransformationStory dict={dict.home.story} />
 
       {/* 3. OUR EXPERTISE — Off-White Editorial + Interactive 3D Metaphors */}
       <ExpertiseStory locale={locale} dict={dict.home.services} />

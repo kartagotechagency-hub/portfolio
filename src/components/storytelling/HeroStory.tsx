@@ -113,7 +113,7 @@ export function HeroStory({ locale, dict }: HeroStoryProps) {
           <HeroReveal delay={0.28}>
             <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row sm:items-center gap-4">
               <a
-                href="#vision"
+                href="#story"
                 className="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#8291EA] text-[#111318] font-medium text-sm tracking-wide hover:bg-[#6e7fe3] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <span>{dict.home.hero.exploreCta}</span>
