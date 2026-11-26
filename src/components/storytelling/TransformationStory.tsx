@@ -9,31 +9,30 @@ import type { Dictionary } from "@/lib/dictionaries";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Realistic architectural environments per chapter
-// (Replaceable 1-for-1 with scene-1-challenge.jpg .. scene-5-kartagotech.jpg once generated)
+// Dedicated photorealistic 3D commercial scenes for Chapters 1–5
 const CHAPTER_ENVS = [
   {
-    src: "/assets/images/hero-bg.jpg",
-    grade: "brightness-75 contrast-110",
+    src: "/assets/images/scene-1-challenge.jpg",
+    grade: "brightness-95",
     position: "object-center",
   },
   {
-    src: "/assets/images/hero-bg.jpg",
-    grade: "brightness-90 saturate-110",
-    position: "object-right",
-  },
-  {
-    src: "/assets/images/about-office.jpg",
-    grade: "brightness-75 contrast-105",
-    position: "object-left",
-  },
-  {
-    src: "/assets/images/about-office.jpg",
-    grade: "brightness-100",
+    src: "/assets/images/scene-2-discovery.jpg",
+    grade: "brightness-95",
     position: "object-center",
   },
   {
-    src: "/assets/images/finale-bg.jpg",
+    src: "/assets/images/scene-3-transformation.jpg",
+    grade: "brightness-95",
+    position: "object-center",
+  },
+  {
+    src: "/assets/images/scene-4-growth.jpg",
+    grade: "brightness-95",
+    position: "object-center",
+  },
+  {
+    src: "/assets/images/scene-5-kartagotech.jpg",
     grade: "brightness-95",
     position: "object-center",
   },
