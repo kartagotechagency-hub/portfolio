@@ -8,7 +8,9 @@ export interface ProjectEntry {
     | "chatbotpro"
     | "lexassist"
     | "elearning"
-    | "voice-agent";
+    | "voice-agent"
+    | "rpa-workflow"
+    | "rpa-platform";
   title: Record<Locale, string>;
   category: Record<Locale, string>;
   status: Record<Locale, string>;
@@ -34,8 +36,8 @@ export const projects: ProjectEntry[] = [
       fr: "Logiciel sur Mesure / Technologie Restauration",
     },
     status: {
-      en: "Development Project · Operational Software",
-      fr: "Projet en Développement · Logiciel Opérationnel",
+      en: "Custom Software",
+      fr: "Logiciel sur Mesure",
     },
     shortDescription: {
       en: "Custom software for restaurant operations, including QR ordering, order management, kitchen display, receipt printing and sales reporting.",
@@ -94,8 +96,8 @@ export const projects: ProjectEntry[] = [
       fr: "SaaS IA Multi-Locataires",
     },
     status: {
-      en: "Development Project · SaaS Platform",
-      fr: "Projet en Développement · Plateforme SaaS",
+      en: "SaaS Platform",
+      fr: "Plateforme SaaS",
     },
     shortDescription: {
       en: "Multi-tenant AI chatbot SaaS platform allowing businesses to customize their own AI chatbot and embed it into any website using a simple HTML/JavaScript snippet.",
@@ -152,8 +154,8 @@ export const projects: ProjectEntry[] = [
       fr: "IA Desktop / LegalTech",
     },
     status: {
-      en: "Development Project · Local Desktop AI",
-      fr: "Projet en Développement · IA Desktop Locale",
+      en: "Desktop AI System",
+      fr: "Système IA Desktop",
     },
     shortDescription: {
       en: "Desktop-based local AI legal assistant with RAG-powered document search, client information retrieval, source citations and optional online research.",
@@ -208,54 +210,54 @@ export const projects: ProjectEntry[] = [
       fr: "Site Web & Plateforme E-learning",
     },
     category: {
-      en: "Web Development / EdTech",
-      fr: "Développement Web / EdTech",
+      en: "WordPress / E-learning & Automation",
+      fr: "WordPress / E-learning & Automatisation",
     },
     status: {
-      en: "Development Project · Web & LMS",
-      fr: "Projet en Développement · Web & LMS",
+      en: "Web & Automation",
+      fr: "Web & Automatisation",
     },
     shortDescription: {
-      en: "Website development and online course management platform built to present educational programs cleanly and deliver structured learning experiences.",
-      fr: "Développement de site web et plateforme de gestion de cours en ligne conçus pour valoriser les programmes de formation et offrir un apprentissage structuré.",
+      en: "Website and online course management platform built with WordPress and its plugin ecosystem, paired with social media automation powered by ManyChat.",
+      fr: "Site web et plateforme de gestion de cours en ligne développés avec WordPress et ses plugins, accompagnés d'une automatisation des réseaux sociaux via ManyChat.",
     },
     challenge: {
-      en: "Training organizations often split their public marketing website from a clunky third-party learning portal, creating a disjointed user journey between discovering a course and actually completing it.",
-      fr: "Les organismes de formation séparent souvent leur site vitrine d'un portail LMS rigide, créant une rupture d'expérience entre la découverte d'un programme et le suivi des cours.",
+      en: "Training businesses need a manageable website and course portal that non-technical teams can update easily, connected to automated social media lead capture and student onboarding.",
+      fr: "Les organismes de formation ont besoin d'un site web et d'un portail de cours faciles à administrer par des équipes non techniques, reliés à une acquisition et un accueil automatisés sur les réseaux sociaux.",
     },
     solution: {
-      en: "We combined a clean, editorial public website with an integrated online course management platform—unifying program discovery, enrollment, structured curriculum modules, and learner progress tracking in one cohesive web application.",
-      fr: "Nous avons réuni un site web éditorial et une plateforme de gestion de cours en ligne intégrée : découverte des programmes, inscription, modules pédagogiques structurés et suivi de progression dans une même application.",
+      en: "We built a tailored WordPress website and e-learning portal leveraging dedicated LMS and content plugins, integrated with ManyChat social media automation workflows to qualify prospects and guide learners automatically.",
+      fr: "Nous avons conçu un site WordPress et un portail e-learning structurés autour de plugins LMS dédiés, intégrés à des scénarios d'automatisation ManyChat sur les réseaux sociaux pour qualifier les prospects et orienter les apprenants.",
     },
     features: {
       en: [
-        "Editorial public website",
-        "Online course catalog",
-        "Structured curriculum & modules",
-        "Learner progress management",
+        "WordPress website architecture",
+        "LMS & course management plugins",
+        "Social media automation (ManyChat)",
+        "Automated prospect & learner flows",
       ],
       fr: [
-        "Site web éditorial performant",
-        "Catalogue de formations en ligne",
-        "Modules et parcours structurés",
-        "Suivi de progression des apprenants",
+        "Architecture WordPress sur mesure",
+        "Plugins LMS et gestion de cours",
+        "Automatisation réseaux sociaux (ManyChat)",
+        "Parcours prospects et apprenants automatisés",
       ],
     },
     architectureHighlights: {
       en: [
-        "Unified frontend delivering SEO-optimized course landing pages alongside authenticated student spaces.",
-        "Modular curriculum builder supporting video lessons, downloadable resources, and chapter milestones.",
-        "Instructor management dashboard for organizing cohorts, publishing updates, and tracking completion.",
-        "Responsive layout designed for comfortable reading and study across desktop, tablet, and mobile.",
+        "Modular WordPress setup configured for clean course presentation, enrollment, and content administration.",
+        "Curated LMS plugin stack managing course modules, learner access, and structured progression.",
+        "ManyChat conversational flows automating social media inquiries, DM responses, and course links.",
+        "Seamless handoff between social media touchpoints and course registration pages.",
       ],
       fr: [
-        "Interface unifiée combinant pages de présentation optimisées SEO et espace apprenant authentifié.",
-        "Structure modulaire prenant en charge vidéos, supports téléchargeables et jalons de chapitres.",
-        "Tableau de bord formateur pour organiser les cohortes, publier des contenus et suivre l'avancement.",
-        "Ergonomie responsive pensée pour la lecture et l'étude sur ordinateur, tablette et mobile.",
+        "Configuration WordPress modulaire pensée pour la présentation des formations, l'inscription et l'administration.",
+        "Écosystème de plugins LMS gérant les modules de cours, les accès apprenants et la progression.",
+        "Scénarios conversationnels ManyChat automatisant les réponses aux messages et la qualification.",
+        "Passerelle fluide entre les points de contact sociaux et les pages d'inscription aux cours.",
       ],
     },
-    stack: ["Next.js", "TypeScript", "LMS Architecture", "Tailwind CSS", "PostgreSQL"],
+    stack: ["WordPress", "LMS Plugins", "ManyChat", "Social Automation", "Responsive Web"],
   },
   {
     slug: "ai-voice-agent",
@@ -270,8 +272,8 @@ export const projects: ProjectEntry[] = [
       fr: "IA Vocale Temps Réel / Téléphonie",
     },
     status: {
-      en: "Development Project · Voice & Telephony",
-      fr: "Projet en Développement · Voix & Téléphonie",
+      en: "Voice & Telephony",
+      fr: "Voix & Téléphonie",
     },
     shortDescription: {
       en: "Real-time AI voice assistant integrating OpenAI Realtime API, Asterisk and FastAPI for natural, low-latency phone conversations.",
@@ -314,6 +316,126 @@ export const projects: ProjectEntry[] = [
       ],
     },
     stack: ["OpenAI Realtime API", "Asterisk", "FastAPI", "WebSockets", "Python"],
+  },
+  {
+    slug: "rpa-business-process-automation",
+    index: "06",
+    visualType: "rpa-workflow",
+    title: {
+      en: "RPA & Business Process Automation",
+      fr: "RPA & Automatisation des Processus Métier",
+    },
+    category: {
+      en: "RPA & Business Process Automation",
+      fr: "RPA & Automatisation des Processus Métier",
+    },
+    status: {
+      en: "Process Automation",
+      fr: "Automatisation Métier",
+    },
+    shortDescription: {
+      en: "End-to-end robotic process automation covering browser automation, repetitive task execution, structured data entry, document processing and automated reporting.",
+      fr: "Automatisation robotisée des processus couvrant l'automatisation navigateur, les tâches répétitives, la saisie de données, le traitement documentaire et le reporting.",
+    },
+    challenge: {
+      en: "Operational teams lose hours every week copying data between web portals, spreadsheets, PDFs, and legacy back-office tools that lack clean APIs.",
+      fr: "Les équipes opérationnelles perdent chaque semaine un temps précieux à recopier des données entre portails web, tableurs, PDF et outils internes dépourvus d'API.",
+    },
+    solution: {
+      en: "We design deterministic RPA pipelines that automate browser interactions, extract and validate document data, execute repetitive data entry reliably, and generate scheduled operational reports.",
+      fr: "Nous concevons des pipelines RPA déterministes qui automatisent les interactions navigateur, extraient et valident les données documentaires, exécutent la saisie de données et génèrent des rapports planifiés.",
+    },
+    features: {
+      en: [
+        "Browser automation",
+        "Repetitive task automation",
+        "Automated data entry",
+        "Document processing",
+        "Scheduled reporting",
+        "Business workflow automation",
+      ],
+      fr: [
+        "Automatisation navigateur",
+        "Automatisation des tâches répétitives",
+        "Saisie automatisée de données",
+        "Traitement documentaire",
+        "Reporting automatisé",
+        "Automatisation des workflows métier",
+      ],
+    },
+    architectureHighlights: {
+      en: [
+        "Headless and attended browser automation scripts handling multi-step web portals and forms.",
+        "Structured document parsing pipelines extracting fields from PDFs, invoices, and spreadsheets.",
+        "Idempotent data-entry routines with validation checks, retry policies, and execution audit logs.",
+        "Automated report generation and scheduled distribution across email or internal dashboards.",
+      ],
+      fr: [
+        "Scripts d'automatisation navigateur gérant portails web complexes et formulaires multi-étapes.",
+        "Pipelines d'extraction structurée pour PDF, factures et feuilles de calcul.",
+        "Routines de saisie idempotentes avec contrôles de validation, reprises et journaux d'exécution.",
+        "Génération et diffusion planifiée de rapports par e-mail ou vers des tableaux de bord internes.",
+      ],
+    },
+    stack: ["Playwright / Puppeteer", "Python", "Document Parsing", "Workflow Orchestration", "Reporting"],
+  },
+  {
+    slug: "rpa-automation-platform",
+    index: "07",
+    visualType: "rpa-platform",
+    title: {
+      en: "RPA Automation Platform",
+      fr: "Plateforme d'Automatisation RPA",
+    },
+    category: {
+      en: "RPA & Business Process Automation",
+      fr: "RPA & Automatisation des Processus Métier",
+    },
+    status: {
+      en: "In Development",
+      fr: "En développement",
+    },
+    shortDescription: {
+      en: "In Development — A unified automation platform inspired by UiPath, designed to automate desktop applications, web browsers, mobile applications and end-to-end business workflows.",
+      fr: "En développement — Une plateforme d'automatisation unifiée inspirée d'UiPath, conçue pour automatiser applications desktop, navigateurs web, applications mobiles et workflows métier.",
+    },
+    challenge: {
+      en: "Modern business processes rarely live in a single environment; a single workflow often spans a desktop ERP, a web portal, and a mobile interface, requiring unified orchestration.",
+      fr: "Les processus métier modernes s'exécutent rarement dans un seul environnement ; un même flux traverse souvent un ERP desktop, un portail web et une interface mobile.",
+    },
+    solution: {
+      en: "Currently in active development, this platform is architected as a modular, UiPath-inspired studio and execution engine capable of orchestrating cross-surface automations across desktop, web, and mobile targets.",
+      fr: "Actuellement en développement actif, cette plateforme est conçue comme un studio et un moteur d'exécution modulaires inspirés d'UiPath pour orchestrer des automatisations desktop, web et mobiles.",
+    },
+    features: {
+      en: [
+        "Desktop application automation",
+        "Web browser automation",
+        "Mobile application automation",
+        "Visual workflow orchestration",
+      ],
+      fr: [
+        "Automatisation d'applications desktop",
+        "Automatisation de navigateurs web",
+        "Automatisation d'applications mobiles",
+        "Orchestration visuelle des workflows",
+      ],
+    },
+    architectureHighlights: {
+      en: [
+        "Cross-platform runner architecture targeting desktop UI trees, browser DOMs, and mobile automation bridges.",
+        "Composable workflow graph separating reusable action blocks, triggers, and conditional branches.",
+        "Centralized execution queue and state monitoring designed for attended and unattended bots.",
+        "Project currently in development; core studio and runtime modules under active engineering.",
+      ],
+      fr: [
+        "Architecture d'exécution multi-cibles couvrant interfaces desktop, DOM web et passerelles mobiles.",
+        "Graphe de workflow composable séparant blocs d'action réutilisables, déclencheurs et conditions.",
+        "File d'exécution centralisée et supervision des états pour robots assistés ou autonomes.",
+        "Projet en cours de développement ; le studio et le moteur d'exécution sont en ingénierie active.",
+      ],
+    },
+    stack: ["In Development", "Desktop UI Automation", "Browser Engine", "Mobile Bridge", "Orchestrator"],
   },
 ];
 

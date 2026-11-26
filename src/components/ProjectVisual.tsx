@@ -10,17 +10,27 @@ import {
   BookOpen,
   PhoneCall,
   AudioLines,
+  Workflow,
+  FileSpreadsheet,
+  Monitor,
+  Smartphone,
 } from "lucide-react";
 
 interface ProjectVisualProps {
-  type: "restaurant" | "chatbotpro" | "lexassist" | "elearning" | "voice-agent";
+  type:
+    | "restaurant"
+    | "chatbotpro"
+    | "lexassist"
+    | "elearning"
+    | "voice-agent"
+    | "rpa-workflow"
+    | "rpa-platform";
   mockupLabel: string;
   className?: string;
 }
 
 /**
- * Editorial, Swiss-styled illustrative system mockups for KartagoTech's
- * development & concept projects. Clearly labeled as illustrative mockups.
+ * Editorial, Swiss-styled system previews for KartagoTech's portfolio projects.
  */
 export function ProjectVisual({
   type,
@@ -38,12 +48,12 @@ export function ProjectVisual({
       <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-[#111318]/90">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8291EA]" />
-          <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] text-white/70">
+          <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] text-white/75">
             {mockupLabel}
           </span>
         </div>
         <span className="text-[10px] font-mono text-white/40 hidden sm:inline">
-          KARTAGOTECH // SYS-PREVIEW
+          KARTAGOTECH // ARCHITECTURE
         </span>
       </div>
 
@@ -54,6 +64,8 @@ export function ProjectVisual({
         {type === "lexassist" && <LexAssistMockup />}
         {type === "elearning" && <ElearningMockup />}
         {type === "voice-agent" && <VoiceAgentMockup />}
+        {type === "rpa-workflow" && <RpaWorkflowMockup />}
+        {type === "rpa-platform" && <RpaPlatformMockup />}
       </div>
     </div>
   );
@@ -62,7 +74,6 @@ export function ProjectVisual({
 function RestaurantMockup() {
   return (
     <div className="w-full h-full grid grid-cols-12 gap-3 sm:gap-4 transition-transform duration-500 group-hover:scale-[1.015]">
-      {/* Left: QR Digital Menu & Order Management */}
       <div className="col-span-5 bg-[#F5F5F2] text-[#111318] p-3 sm:p-4 flex flex-col justify-between border border-white/10">
         <div>
           <div className="flex items-center justify-between border-b border-[#111318]/10 pb-2 mb-3">
@@ -95,7 +106,6 @@ function RestaurantMockup() {
         </div>
       </div>
 
-      {/* Right: Kitchen Display System (KDS) & Receipt Print */}
       <div className="col-span-7 bg-[#1A1D24] border border-white/12 p-3 sm:p-4 flex flex-col justify-between text-white">
         <div>
           <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
@@ -142,7 +152,6 @@ function RestaurantMockup() {
 function ChatbotProMockup() {
   return (
     <div className="w-full h-full grid grid-cols-12 gap-3 sm:gap-4 transition-transform duration-500 group-hover:scale-[1.015]">
-      {/* Left: Multi-Tenant SaaS Config & Embed Snippet */}
       <div className="col-span-6 bg-[#1A1D24] border border-white/12 p-3 sm:p-4 flex flex-col justify-between text-white">
         <div>
           <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
@@ -169,7 +178,6 @@ function ChatbotProMockup() {
         </div>
       </div>
 
-      {/* Right: Embedded Website Widget Preview */}
       <div className="col-span-6 bg-[#F5F5F2] text-[#111318] p-3 sm:p-4 flex flex-col justify-between">
         <div className="flex items-center justify-between border-b border-[#111318]/10 pb-2">
           <div className="flex items-center gap-2">
@@ -204,7 +212,6 @@ function ChatbotProMockup() {
 function LexAssistMockup() {
   return (
     <div className="w-full h-full grid grid-cols-12 gap-3 sm:gap-4 transition-transform duration-500 group-hover:scale-[1.015]">
-      {/* Left: Local Desktop Case Files & Client Info */}
       <div className="col-span-5 bg-[#1A1D24] border border-white/12 p-3 sm:p-4 flex flex-col justify-between text-white">
         <div>
           <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
@@ -234,7 +241,6 @@ function LexAssistMockup() {
         </div>
       </div>
 
-      {/* Right: Citations & Optional Online Research */}
       <div className="col-span-7 bg-[#F5F5F2] text-[#111318] p-3 sm:p-4 flex flex-col justify-between">
         <div className="flex items-center justify-between border-b border-[#111318]/10 pb-2">
           <div className="flex items-center gap-2">
@@ -269,70 +275,68 @@ function LexAssistMockup() {
 function ElearningMockup() {
   return (
     <div className="w-full h-full grid grid-cols-12 gap-3 sm:gap-4 transition-transform duration-500 group-hover:scale-[1.015]">
-      {/* Left: Public Course Website */}
       <div className="col-span-5 bg-[#F5F5F2] text-[#111318] p-3 sm:p-4 flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between border-b border-[#111318]/10 pb-2 mb-3">
             <span className="text-[10px] font-mono uppercase tracking-wider text-[#777777]">
-              Web Catalog
+              WordPress + LMS
             </span>
             <Globe className="w-3.5 h-3.5 text-[#8291EA]" strokeWidth={1.75} />
           </div>
           <p className="text-xs sm:text-sm font-semibold tracking-tight mb-2">
-            Program Overview
+            Course Catalog
           </p>
           <div className="space-y-2 text-[10px] sm:text-[11px]">
             <div className="p-2 bg-white border border-[#111318]/10">
-              <p className="font-medium">Track 01 · Foundations</p>
+              <p className="font-medium">WordPress LMS Plugin</p>
               <p className="text-[#777777] text-[9px] font-mono mt-0.5">
-                6 MODULES · SELF-PACED
+                MODULES · QUIZZES
               </p>
             </div>
             <div className="p-2 bg-white border border-[#111318]/10">
-              <p className="font-medium">Track 02 · Applied Lab</p>
+              <p className="font-medium">Learner Portal</p>
               <p className="text-[#777777] text-[9px] font-mono mt-0.5">
-                4 MODULES · COHORT
+                ENROLLMENT · ACCESS
               </p>
             </div>
           </div>
         </div>
         <div className="border-t border-[#111318]/10 pt-2 flex items-center justify-between text-[10px] font-mono text-[#777777]">
-          <span>ENROLLMENT</span>
-          <span className="text-[#111318]">OPEN</span>
+          <span>CMS + PLUGINS</span>
+          <span className="text-[#111318]">WORDPRESS</span>
         </div>
       </div>
 
-      {/* Right: LMS Course Player & Curriculum */}
       <div className="col-span-7 bg-[#1A1D24] border border-white/12 p-3 sm:p-4 flex flex-col justify-between text-white">
         <div>
           <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
             <span className="text-[10px] font-mono uppercase tracking-wider text-white/60">
-              Course Management (LMS)
+              ManyChat Social Automation
             </span>
             <BookOpen className="w-3.5 h-3.5 text-[#8291EA]" strokeWidth={1.75} />
           </div>
-          <div className="border border-white/10 bg-[#111318] p-3 mb-2.5">
+          <div className="border border-[#8291EA]/40 bg-[#8291EA]/10 p-3 mb-2.5">
             <p className="text-[9px] font-mono text-[#8291EA] mb-1">
-              MODULE 02 // LESSON 04
+              TRIGGER // SOCIAL DM & COMMENT
             </p>
             <p className="text-xs text-white/90">
-              Structured Assessment & Resources
+              Auto-qualify lead → Send course registration link
             </p>
           </div>
           <div className="space-y-1.5 text-[10px] text-white/75">
             <div className="flex justify-between">
-              <span>01. Introduction</span>
-              <span className="font-mono text-[#8291EA]">DONE</span>
+              <span>01. Social Inquiry</span>
+              <span className="font-mono text-[#8291EA]">MANYCHAT</span>
             </div>
             <div className="flex justify-between">
-              <span>02. Core Architecture</span>
-              <span className="font-mono text-white/50">IN PROGRESS</span>
+              <span>02. Course Onboarding</span>
+              <span className="font-mono text-white/60">WP LMS</span>
             </div>
           </div>
         </div>
         <div className="border-t border-white/10 pt-2 flex items-center justify-between text-[10px] font-mono">
-          <span className="text-white/50">LEARNER PORTAL</span>
-          <span className="text-[#8291EA]">SYNCHRONIZED</span>
+          <span className="text-white/50">SOCIAL FUNNEL</span>
+          <span className="text-[#8291EA]">AUTOMATED</span>
         </div>
       </div>
     </div>
@@ -342,7 +346,6 @@ function ElearningMockup() {
 function VoiceAgentMockup() {
   return (
     <div className="w-full h-full grid grid-cols-12 gap-3 sm:gap-4 transition-transform duration-500 group-hover:scale-[1.015]">
-      {/* Left: Asterisk + FastAPI Telephony Pipeline */}
       <div className="col-span-5 bg-[#1A1D24] border border-white/12 p-3 sm:p-4 flex flex-col justify-between text-white">
         <div>
           <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
@@ -372,7 +375,6 @@ function VoiceAgentMockup() {
         </div>
       </div>
 
-      {/* Right: Real-Time Audio Turn Monitor */}
       <div className="col-span-7 bg-[#F5F5F2] text-[#111318] p-3 sm:p-4 flex flex-col justify-between">
         <div className="flex items-center justify-between border-b border-[#111318]/10 pb-2">
           <div className="flex items-center gap-2">
@@ -384,7 +386,6 @@ function VoiceAgentMockup() {
           </span>
         </div>
 
-        {/* Minimalist waveform bars */}
         <div className="my-2 p-3 bg-[#111318] flex items-center justify-center gap-1.5 h-16">
           {[35, 70, 45, 90, 60, 80, 40, 65, 85, 50, 75, 35].map((h, i) => (
             <span
@@ -404,6 +405,134 @@ function VoiceAgentMockup() {
             <span>SESSION STATE</span>
             <span className="text-[#8291EA]">LISTENING</span>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RpaWorkflowMockup() {
+  return (
+    <div className="w-full h-full grid grid-cols-12 gap-3 sm:gap-4 transition-transform duration-500 group-hover:scale-[1.015]">
+      <div className="col-span-6 bg-[#1A1D24] border border-white/12 p-3 sm:p-4 flex flex-col justify-between text-white">
+        <div>
+          <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-white/60">
+              RPA Execution Pipeline
+            </span>
+            <Workflow className="w-3.5 h-3.5 text-[#8291EA]" strokeWidth={1.75} />
+          </div>
+          <div className="space-y-2 text-[10px] sm:text-[11px]">
+            <div className="p-2 border border-white/10 bg-[#111318] flex justify-between">
+              <span>01. Browser Automation</span>
+              <span className="font-mono text-[#8291EA]">DOM</span>
+            </div>
+            <div className="p-2 border border-white/10 bg-[#111318] flex justify-between">
+              <span>02. Document Processing</span>
+              <span className="font-mono text-white/65">PDF/XLS</span>
+            </div>
+            <div className="p-2 border border-[#8291EA]/40 bg-[#8291EA]/10 flex justify-between">
+              <span>03. Automated Data Entry</span>
+              <span className="font-mono text-[#8291EA]">VERIFIED</span>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-white/10 pt-2 flex items-center justify-between text-[10px] font-mono text-white/50">
+          <span>REPETITIVE TASKS</span>
+          <span className="text-[#8291EA]">AUTOMATED</span>
+        </div>
+      </div>
+
+      <div className="col-span-6 bg-[#F5F5F2] text-[#111318] p-3 sm:p-4 flex flex-col justify-between">
+        <div className="flex items-center justify-between border-b border-[#111318]/10 pb-2">
+          <div className="flex items-center gap-2">
+            <FileSpreadsheet className="w-3.5 h-3.5 text-[#8291EA]" strokeWidth={1.75} />
+            <span className="text-xs font-semibold">Workflow & Reporting</span>
+          </div>
+          <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 bg-[#111318] text-white">
+            BATCH
+          </span>
+        </div>
+
+        <div className="space-y-2 my-2 text-[10px] sm:text-[11px]">
+          <div className="p-2 bg-white border border-[#111318]/10 flex justify-between">
+            <span>Invoice Extraction</span>
+            <span className="font-mono text-[#8291EA]">QUEUED</span>
+          </div>
+          <div className="p-2 bg-white border border-[#111318]/10 flex justify-between">
+            <span>Scheduled Report Export</span>
+            <span className="font-mono text-[#111318]">CSV / PDF</span>
+          </div>
+        </div>
+
+        <div className="border-t border-[#111318]/10 pt-2 flex items-center justify-between text-[10px] font-mono text-[#777777]">
+          <span>WORKFLOW BOT</span>
+          <span className="text-[#111318]">SCHEDULED</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RpaPlatformMockup() {
+  return (
+    <div className="w-full h-full grid grid-cols-12 gap-3 sm:gap-4 transition-transform duration-500 group-hover:scale-[1.015]">
+      <div className="col-span-5 bg-[#1A1D24] border border-white/12 p-3 sm:p-4 flex flex-col justify-between text-white">
+        <div>
+          <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-white/60">
+              Target Surfaces
+            </span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#8291EA]/20 text-[#8291EA] border border-[#8291EA]/40">
+              IN DEV
+            </span>
+          </div>
+          <div className="space-y-2 text-[10px] sm:text-[11px]">
+            <div className="p-2 border border-white/10 bg-[#111318] flex items-center gap-2">
+              <Monitor className="w-3 h-3 text-[#8291EA]" />
+              <span>Desktop Apps</span>
+            </div>
+            <div className="p-2 border border-white/10 bg-[#111318] flex items-center gap-2">
+              <Globe className="w-3 h-3 text-[#8291EA]" />
+              <span>Web Browsers</span>
+            </div>
+            <div className="p-2 border border-white/10 bg-[#111318] flex items-center gap-2">
+              <Smartphone className="w-3 h-3 text-[#8291EA]" />
+              <span>Mobile Apps</span>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-white/10 pt-2 flex items-center justify-between text-[10px] font-mono text-white/50">
+          <span>CROSS-SURFACE</span>
+          <span className="text-[#8291EA]">RUNNER</span>
+        </div>
+      </div>
+
+      <div className="col-span-7 bg-[#F5F5F2] text-[#111318] p-3 sm:p-4 flex flex-col justify-between">
+        <div className="flex items-center justify-between border-b border-[#111318]/10 pb-2">
+          <div className="flex items-center gap-2">
+            <Workflow className="w-3.5 h-3.5 text-[#8291EA]" strokeWidth={1.75} />
+            <span className="text-xs font-semibold">Automation Studio</span>
+          </div>
+          <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 bg-[#111318] text-white">
+            IN DEVELOPMENT
+          </span>
+        </div>
+
+        <div className="my-2 space-y-2 text-[10px] sm:text-[11px]">
+          <div className="p-2 bg-white border border-[#111318]/12 flex items-center justify-between">
+            <span>[Trigger] → Capture Desktop UI</span>
+            <span className="font-mono text-[#777777]">STEP 01</span>
+          </div>
+          <div className="p-2 bg-white border border-[#8291EA] flex items-center justify-between">
+            <span>[Action] → Sync Browser & Mobile</span>
+            <span className="font-mono text-[#8291EA]">STEP 02</span>
+          </div>
+        </div>
+
+        <div className="border-t border-[#111318]/10 pt-2 flex items-center justify-between text-[10px] font-mono text-[#777777]">
+          <span>WORKFLOW ENGINE</span>
+          <span className="text-[#111318]">ARCHITECTURE</span>
         </div>
       </div>
     </div>

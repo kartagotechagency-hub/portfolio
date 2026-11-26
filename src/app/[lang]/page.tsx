@@ -217,7 +217,12 @@ export default function HomePage({ params }: { params: { lang: string } }) {
               <FadeIn
                 key={service.index}
                 delay={idx * 0.05}
-                className="border-r border-b border-[#111318]/12 p-8 sm:p-10 lg:p-12 flex flex-col justify-between bg-white hover:bg-[#F5F5F2]/70 transition-colors group"
+                className={`border-r border-b border-[#111318]/12 p-8 sm:p-10 lg:p-12 flex flex-col justify-between bg-white hover:bg-[#F5F5F2]/70 transition-colors group ${
+                  idx === dict.home.services.items.length - 1 &&
+                  dict.home.services.items.length % 2 === 1
+                    ? "md:col-span-2"
+                    : ""
+                }`}
               >
                 <div>
                   <span className="block text-xs font-mono text-[#8291EA] mb-6">

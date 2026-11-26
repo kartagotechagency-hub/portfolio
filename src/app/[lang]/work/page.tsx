@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowUpRight, Info } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { isValidLocale, getLocalizedPath, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
 import { projects } from "@/data/projects";
@@ -55,17 +55,9 @@ export default function WorkPage({ params }: { params: { lang: string } }) {
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tightest leading-[1.06] text-[#111318] max-w-4xl mb-8">
               {dict.workPage.title}
             </h1>
-            <p className="text-lg sm:text-xl text-[#777777] leading-relaxed max-w-2xl mb-10">
+            <p className="text-lg sm:text-xl text-[#777777] leading-relaxed max-w-2xl">
               {dict.workPage.subtitle}
             </p>
-
-            {/* Transparency Disclaimer */}
-            <div className="inline-flex items-start gap-3 p-4 bg-white border border-[#111318]/12 max-w-3xl">
-              <Info className="w-4 h-4 text-[#8291EA] shrink-0 mt-0.5" />
-              <p className="text-xs sm:text-sm text-[#777777] leading-relaxed">
-                {dict.workPage.disclaimer}
-              </p>
-            </div>
           </FadeIn>
         </div>
       </section>

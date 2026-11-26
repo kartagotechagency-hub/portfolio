@@ -101,7 +101,6 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     subtitle: string;
-    disclaimer: string;
     viewCaseStudy: string;
     featuresLabel: string;
     statusLabel: string;
@@ -274,6 +273,13 @@ const en: Dictionary = {
           description:
             "End-to-end process optimization, legacy tool unification, and structured workflow modernization built around your operations.",
           href: "/services#digital-transformation",
+        },
+        {
+          index: "05",
+          title: "RPA & Business Process Automation",
+          description:
+            "Robotic process automation for browser workflows, repetitive tasks, data entry, document processing, and automated operational reporting.",
+          href: "/services#rpa-automation",
         },
       ],
     },
@@ -486,6 +492,37 @@ const en: Dictionary = {
           },
         ],
       },
+      {
+        id: "rpa-automation",
+        index: "05",
+        title: "RPA & Business Process Automation",
+        summary:
+          "Deterministic robotic process automation for high-volume operational tasks across browsers, documents, and back-office systems.",
+        businessValue:
+          "Manual data entry, copy-pasting across portals, and repetitive document handling drain team capacity and introduce human error. We automate these workflows reliably so your team can focus on higher-value decisions.",
+        deliverables: [
+          {
+            name: "Browser & repetitive task automation",
+            detail:
+              "Automated multi-step web portal interactions, form submissions, and scheduled operational routines.",
+          },
+          {
+            name: "Data entry & synchronization",
+            detail:
+              "Validated, error-checked data transfers between spreadsheets, CRMs, ERPs, and legacy tools.",
+          },
+          {
+            name: "Document processing",
+            detail:
+              "Automated extraction, structuring, and routing of data from PDFs, invoices, and operational files.",
+          },
+          {
+            name: "Reporting & workflow automation",
+            detail:
+              "Scheduled report generation, consolidation, and end-to-end business workflow execution.",
+          },
+        ],
+      },
     ],
   },
   workPage: {
@@ -495,13 +532,11 @@ const en: Dictionary = {
     eyebrow: "Selected Work",
     title: "Digital systems designed around real operational workflows.",
     subtitle:
-      "A curated view of platforms we are engineering across hospitality technology, applied AI, and enterprise operations.",
-    disclaimer:
-      "Transparency note: These projects represent active internal developments and product concepts. Visuals shown are illustrative system mockups rather than live client deployments.",
+      "A curated view of platforms and automation systems across hospitality, applied AI, web, and RPA.",
     viewCaseStudy: "Inspect case study",
     featuresLabel: "Key Capabilities",
     statusLabel: "Project Status",
-    mockupLabel: "Illustrative System Mockup · Development Project",
+    mockupLabel: "System Preview",
     backToWork: "Back to all work",
     challengeLabel: "Operational Context",
     solutionLabel: "System Architecture & Approach",
@@ -610,6 +645,7 @@ const en: Dictionary = {
         "Web Development",
         "Custom Software Development",
         "AI & Automation",
+        "RPA & Business Process Automation",
         "Digital Transformation",
         "Multiple / Advisory",
       ],
@@ -722,6 +758,13 @@ const fr: Dictionary = {
           description:
             "Optimisation des processus, unification d'outils existants et modernisation structurée des flux de travail autour de vos opérations.",
           href: "/services#digital-transformation",
+        },
+        {
+          index: "05",
+          title: "RPA & Automatisation des Processus Métier",
+          description:
+            "Automatisation robotisée pour les flux navigateur, tâches répétitives, saisie de données, traitement documentaire et reporting opérationnel.",
+          href: "/services#rpa-automation",
         },
       ],
     },
@@ -934,6 +977,37 @@ const fr: Dictionary = {
           },
         ],
       },
+      {
+        id: "rpa-automation",
+        index: "05",
+        title: "RPA & Automatisation des Processus Métier",
+        summary:
+          "Automatisation robotisée déterministe pour les tâches opérationnelles récurrentes sur navigateurs, documents et outils back-office.",
+        businessValue:
+          "La saisie manuelle, les copier-coller entre portails et le traitement répétitif de documents mobilisent inutilement vos équipes et génèrent des erreurs. Nous automatisons ces flux de manière fiable pour libérer du temps à forte valeur ajoutée.",
+        deliverables: [
+          {
+            name: "Automatisation navigateur & tâches répétitives",
+            detail:
+              "Exécution automatisée de parcours multi-étapes sur portails web, formulaires et routines planifiées.",
+          },
+          {
+            name: "Saisie & synchronisation de données",
+            detail:
+              "Transferts contrôlés et validés entre tableurs, CRM, ERP et outils métier sans API.",
+          },
+          {
+            name: "Traitement documentaire",
+            detail:
+              "Extraction, structuration et routage automatisés de données issues de PDF, factures et dossiers.",
+          },
+          {
+            name: "Reporting & workflows métier",
+            detail:
+              "Génération planifiée de rapports, consolidation et orchestration complète de processus métier.",
+          },
+        ],
+      },
     ],
   },
   workPage: {
@@ -943,13 +1017,11 @@ const fr: Dictionary = {
     eyebrow: "Projets Sélectionnés",
     title: "Des systèmes digitaux bâtis autour de flux opérationnels réels.",
     subtitle:
-      "Un aperçu de plateformes que nous concevons dans les domaines de la restauration, de l'IA appliquée et de la gestion d'entreprise.",
-    disclaimer:
-      "Note de transparence : Ces projets présentent des développements internes actifs et des concepts produits. Les visuels affichés sont des maquettes système illustratives et non des déploiements clients publics.",
+      "Un aperçu de plateformes et systèmes d'automatisation en restauration, IA appliquée, web et RPA.",
     viewCaseStudy: "Voir l'étude de cas",
     featuresLabel: "Fonctionnalités Clés",
     statusLabel: "Statut du projet",
-    mockupLabel: "Maquette illustrative · Projet en développement",
+    mockupLabel: "Aperçu Système",
     backToWork: "Retour aux projets",
     challengeLabel: "Contexte Opérationnel",
     solutionLabel: "Architecture & Approche",
@@ -1058,6 +1130,7 @@ const fr: Dictionary = {
         "Développement Web",
         "Logiciel sur Mesure",
         "IA & Automatisation",
+        "RPA & Automatisation des Processus Métier",
         "Transformation Digitale",
         "Multiple / Conseil",
       ],
