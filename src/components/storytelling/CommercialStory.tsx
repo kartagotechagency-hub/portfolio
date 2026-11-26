@@ -15,45 +15,43 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SCENES = [
   {
-    src: "/assets/images/scene-1-challenge.jpg",
-    fromScale: 1.0,
-    toScale: 1.08,
-    fromX: 0,
-    toX: -1.5,
-  },
-  {
-    src: "/assets/images/scene-2-discovery.jpg",
-    fromScale: 1.06,
-    toScale: 1.0,
-    fromX: -1.5,
-    toX: 1.2,
-  },
-  {
-    src: "/assets/images/scene-3-operations.jpg",
+    src: "/assets/images/story-01-challenge.png",
+    objectPos: "object-[center_18%]",
     fromScale: 1.0,
     toScale: 1.07,
-    fromX: 1.2,
-    toX: -1.0,
+    fromX: 0,
+    toX: -1.2,
   },
   {
-    src: "/assets/images/scene-3-transformation.jpg",
+    src: "/assets/images/story-02-opportunity.png",
+    objectPos: "object-[center_18%]",
     fromScale: 1.06,
     toScale: 1.0,
-    fromX: -1.0,
+    fromX: -1.2,
     toX: 1.0,
   },
   {
-    src: "/assets/images/scene-4-growth.jpg",
+    src: "/assets/images/story-03-transformation.png",
+    objectPos: "object-[center_15%]",
     fromScale: 1.0,
-    toScale: 1.06,
+    toScale: 1.07,
     fromX: 1.0,
-    toX: 0,
+    toX: -1.0,
   },
   {
-    src: "/assets/images/scene-5-kartagotech.jpg",
+    src: "/assets/images/story-04-growth.png",
+    objectPos: "object-[center_15%]",
     fromScale: 1.06,
     toScale: 1.0,
-    fromX: 0,
+    fromX: -1.0,
+    toX: 0.8,
+  },
+  {
+    src: "/assets/images/story-05-future.png",
+    objectPos: "object-[center_18%]",
+    fromScale: 1.0,
+    toScale: 1.05,
+    fromX: 0.8,
     toX: 0,
   },
 ];
@@ -93,10 +91,10 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
           const idx = Math.min(total - 1, Math.round(exact));
           setActiveScene(idx);
 
-          // Continuous camera pan/zoom per scene
           imageRefs.current.forEach((el, i) => {
             if (!el) return;
             const scene = SCENES[i];
+            if (!scene) return;
             const dist = Math.abs(exact - i);
             const opacity = Math.max(0, 1 - dist * 1.15);
             const localT = Math.max(0, Math.min(1, exact - i + 0.5));
@@ -120,7 +118,8 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
     const rect = wrapperRef.current.getBoundingClientRect();
     const docTop = window.scrollY + rect.top;
     const scrollable = wrapperRef.current.offsetHeight - window.innerHeight;
-    const targetY = docTop + (scrollable * idx) / Math.max(1, chapters.length - 1);
+    const targetY =
+      docTop + (scrollable * idx) / Math.max(1, chapters.length - 1);
     window.scrollTo({ top: targetY, behavior: "smooth" });
   };
 
@@ -128,46 +127,49 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
   if (isMobile || reducedMotion) {
     return (
       <section className="bg-[#111318] text-white">
-        {chapters.map((chapter, idx) => (
-          <div
-            key={chapter.index}
-            className="relative min-h-[82vh] flex flex-col justify-end border-b border-white/10 overflow-hidden"
-          >
-            <Image
-              src={SCENES[idx]?.src || SCENES[0].src}
-              alt=""
-              fill
-              priority={idx === 0}
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#111318] via-[#111318]/45 to-[#111318]/30" />
+        {chapters.map((chapter, idx) => {
+          const scene = SCENES[idx] ?? SCENES[0];
+          return (
+            <div
+              key={chapter.index}
+              className="relative min-h-[82vh] flex flex-col justify-end border-b border-white/10 overflow-hidden"
+            >
+              <Image
+                src={scene.src}
+                alt={`${chapter.index} — ${chapter.tag}`}
+                fill
+                priority={idx === 0}
+                sizes="100vw"
+                className={`object-cover ${scene.objectPos}`}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#111318] via-[#111318]/45 to-[#111318]/25" />
 
-            <div className="relative z-10 max-w-[1360px] w-full mx-auto px-5 py-12">
-              <div className="flex items-center gap-2.5 mb-3">
-                <span className="w-2 h-2 bg-[#8291EA]" />
-                <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#8291EA]">
-                  {chapter.index} · {chapter.tag}
-                </span>
+              <div className="relative z-10 max-w-[1360px] w-full mx-auto px-5 py-12">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <span className="w-2 h-2 bg-[#8291EA]" />
+                  <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#8291EA]">
+                    {chapter.index} · {chapter.tag}
+                  </span>
+                </div>
+                <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight leading-[1.08] text-white mb-3">
+                  {chapter.title}
+                </h2>
+                <p className="text-sm sm:text-base text-white/85 leading-relaxed max-w-xl mb-6">
+                  {chapter.body}
+                </p>
+                {idx === chapters.length - 1 && (
+                  <Link
+                    href={getLocalizedPath("/contact", locale)}
+                    className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#8291EA] text-[#111318] font-medium text-sm"
+                  >
+                    <span>{dict.home.hero.primaryCta}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
               </div>
-              <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight leading-[1.08] text-white mb-3">
-                {chapter.title}
-              </h2>
-              <p className="text-sm sm:text-base text-white/80 leading-relaxed max-w-xl mb-6">
-                {chapter.body}
-              </p>
-              {idx === chapters.length - 1 && (
-                <Link
-                  href={getLocalizedPath("/contact", locale)}
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#8291EA] text-[#111318] font-medium text-sm"
-                >
-                  <span>{dict.home.hero.primaryCta}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
     );
   }
@@ -185,7 +187,7 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
         ref={pinnedRef}
         className="relative h-screen w-full overflow-hidden flex flex-col justify-between"
       >
-        {/* Cross-Fading Camera-Driven Photorealistic Scenes */}
+        {/* Cross-Fading Camera-Driven Scenes */}
         {SCENES.map((scene, idx) => (
           <div
             key={scene.src}
@@ -205,31 +207,31 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
               fill
               priority={idx < 2}
               sizes="100vw"
-              className="object-cover object-center"
+              className={`object-cover ${scene.objectPos}`}
             />
           </div>
         ))}
 
-        {/* Cinematic Gradient Vignettes for Legibility */}
+        {/* Cinematic Gradient Vignettes for Crisp Legibility */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-[#111318]/85 via-[#111318]/35 to-transparent pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-r from-[#111318]/85 via-[#111318]/30 to-transparent pointer-events-none"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-[#111318]/92 via-transparent to-[#111318]/45 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-t from-[#111318]/92 via-[#111318]/20 to-[#111318]/40 pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* Top Bar: Brand Identity + Scene Counter */}
+        {/* Top Bar: Brand Identity + Chapter Navigation */}
         <div className="relative z-10 max-w-[1360px] w-full mx-auto px-8 lg:px-12 pt-8 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 bg-[#8291EA]" />
-            <span className="text-xs font-mono uppercase tracking-[0.18em] text-white/80">
+            <span className="text-xs font-mono uppercase tracking-[0.18em] text-white/85">
               {dict.home.hero.eyebrow}
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {chapters.map((ch, idx) => {
               const isActive = activeScene === idx;
               return (
@@ -237,10 +239,10 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
                   key={ch.index}
                   type="button"
                   onClick={() => jumpToScene(idx)}
-                  className={`px-2.5 py-1 text-[11px] font-mono transition-colors border ${
+                  className={`px-3 py-1 text-[11px] font-mono transition-colors border ${
                     isActive
                       ? "border-[#8291EA] bg-[#8291EA] text-[#111318] font-medium"
-                      : "border-white/20 text-white/60 hover:text-white hover:border-white/50"
+                      : "border-white/25 bg-[#111318]/40 text-white/70 hover:text-white hover:border-white/60"
                   }`}
                 >
                   {ch.index}
@@ -254,16 +256,16 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
         <div className="relative z-10 max-w-[1360px] w-full mx-auto px-8 lg:px-12 pb-12 lg:pb-16">
           <div className="grid grid-cols-12 gap-8 items-end">
             <div className="col-span-8">
-              <p className="text-xs font-mono uppercase tracking-[0.18em] text-[#8291EA] mb-4">
+              <p className="text-xs font-mono uppercase tracking-[0.18em] text-[#8291EA] mb-3">
                 {current.index} / 0{chapters.length} — {current.tag}
               </p>
 
-              <h1 className="font-display font-medium text-[clamp(2.4rem,4.7vw,4.5rem)] leading-[1.04] tracking-tightest text-white mb-5 max-w-3xl">
+              <h1 className="font-display font-medium text-[clamp(2.35rem,4.5vw,4.25rem)] leading-[1.05] tracking-tightest text-white mb-4 max-w-3xl">
                 {current.title}
               </h1>
 
-              <p className="text-lg text-white/80 leading-relaxed max-w-2xl mb-7">
-                {current.body}
+              <p className="text-base sm:text-lg text-white/85 leading-relaxed max-w-2xl mb-7">
+                {current.headline}
               </p>
 
               <div className="flex items-center gap-4">
@@ -288,7 +290,7 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
 
                 <a
                   href="#services-section"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/25 bg-white/5 backdrop-blur-sm text-white font-medium text-sm tracking-wide hover:border-white hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/30 bg-[#111318]/45 backdrop-blur-sm text-white font-medium text-sm tracking-wide hover:border-white hover:bg-white/10 transition-colors"
                 >
                   <span>{dict.home.services.exploreServices}</span>
                 </a>
@@ -297,13 +299,13 @@ export function CommercialStory({ locale, dict }: CommercialStoryProps) {
 
             {/* Right: Minimal Commercial Progress Indicator */}
             <div className="col-span-4 flex flex-col items-end justify-end pb-1">
-              <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-white/55 mb-3">
+              <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-white/65 mb-3">
                 {dict.home.hero.location}
               </p>
-              <div className="w-48 h-[2px] bg-white/15 overflow-hidden">
+              <div className="w-48 h-[2px] bg-white/20 overflow-hidden">
                 <div
                   className="h-full bg-[#8291EA] transition-all duration-150"
-                  style={{ width: `${Math.max(8, progress * 100)}%` }}
+                  style={{ width: `${Math.max(10, progress * 100)}%` }}
                 />
               </div>
             </div>

@@ -5,7 +5,6 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { isValidLocale, getLocalizedPath, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
 import { projects } from "@/data/projects";
-import { ProjectVisual } from "@/components/ProjectVisual";
 import { FadeIn } from "@/components/MotionPrimitives";
 import { CommercialStory } from "@/components/storytelling/CommercialStory";
 import { ExpertiseStory } from "@/components/storytelling/ExpertiseStory";
@@ -80,60 +79,46 @@ export default function HomePage({ params }: { params: { lang: string } }) {
             </div>
           </FadeIn>
 
-          <div className="space-y-16 sm:space-y-24">
+          <div className="divide-y divide-[#111318]/12 border-t border-b border-[#111318]/12">
             {projects.map((project, idx) => (
               <FadeIn key={project.slug} delay={Math.min(idx * 0.04, 0.2)}>
-                <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-10 border-t border-[#111318]/12 group">
-                  <div className="lg:col-span-7">
-                    <Link
-                      href={getLocalizedPath(`/work/${project.slug}`, locale)}
-                      className="block transition-transform duration-500 group-hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8291EA]"
-                    >
-                      <ProjectVisual
-                        type={project.visualType}
-                        mockupLabel={dict.workPage.mockupLabel}
-                      />
-                    </Link>
-                  </div>
-
-                  <div className="lg:col-span-5 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-xs font-mono text-[#8291EA]">
-                          {project.index}
-                        </span>
-                        <span className="text-xs font-mono uppercase tracking-[0.12em] text-[#777777]">
-                          {project.category[locale]}
-                        </span>
-                      </div>
-
-                      <h3 className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-[#111318] mb-4">
-                        <Link
-                          href={getLocalizedPath(`/work/${project.slug}`, locale)}
-                          className="hover:text-[#8291EA] transition-colors"
-                        >
-                          {project.title[locale]}
-                        </Link>
-                      </h3>
-
-                      <p className="text-[#777777] text-base leading-relaxed mb-6">
-                        {project.shortDescription[locale]}
-                      </p>
-
-                      <p className="text-[11px] font-mono uppercase tracking-[0.12em] text-[#111318]/65 mb-8">
-                        {project.status[locale]}
-                      </p>
+                <article className="py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center group">
+                  <div className="lg:col-span-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-xs font-mono text-[#8291EA]">
+                        {project.index}
+                      </span>
+                      <span className="text-xs font-mono uppercase tracking-[0.12em] text-[#777777]">
+                        {project.category[locale]}
+                      </span>
                     </div>
-
-                    <div>
+                    <h3 className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-[#111318]">
                       <Link
                         href={getLocalizedPath(`/work/${project.slug}`, locale)}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] border-b border-[#111318]/30 pb-1 hover:border-[#8291EA] hover:text-[#8291EA] transition-colors group/link"
+                        className="hover:text-[#8291EA] transition-colors"
                       >
-                        <span>{dict.home.selectedWork.exploreCase}</span>
-                        <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                        {project.title[locale]}
                       </Link>
-                    </div>
+                    </h3>
+                  </div>
+
+                  <div className="lg:col-span-5">
+                    <p className="text-[#777777] text-base leading-relaxed">
+                      {project.shortDescription[locale]}
+                    </p>
+                  </div>
+
+                  <div className="lg:col-span-3 flex lg:flex-col lg:items-end justify-between gap-3">
+                    <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[#111318]/60">
+                      {project.status[locale]}
+                    </span>
+                    <Link
+                      href={getLocalizedPath(`/work/${project.slug}`, locale)}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] border-b border-[#111318]/30 pb-1 hover:border-[#8291EA] hover:text-[#8291EA] transition-colors group/link shrink-0"
+                    >
+                      <span>{dict.home.selectedWork.exploreCase}</span>
+                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                    </Link>
                   </div>
                 </article>
               </FadeIn>
