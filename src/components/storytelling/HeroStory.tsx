@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -12,11 +11,6 @@ import { useMediaPreferences } from "@/lib/useMediaPreferences";
 import type { Locale } from "@/lib/i18n";
 import { getLocalizedPath } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
-
-const HeroScene = dynamic(() => import("@/components/scenes/HeroScene"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 bg-transparent" />,
-});
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,17 +28,21 @@ export function HeroStory({ locale, dict }: HeroStoryProps) {
     if (reducedMotion || !sectionRef.current || !bgRef.current) return;
 
     const ctx = gsap.context(() => {
-      gsap.to(bgRef.current, {
-        yPercent: 14,
-        scale: 1.08,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      gsap.fromTo(
+        bgRef.current,
+        { scale: 1.0, yPercent: 0 },
+        {
+          yPercent: 12,
+          scale: 1.09,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -55,7 +53,7 @@ export function HeroStory({ locale, dict }: HeroStoryProps) {
       ref={sectionRef}
       className="relative min-h-[calc(100vh-5rem)] bg-[#111318] text-white overflow-hidden flex flex-col justify-between border-b border-white/10"
     >
-      {/* Layer 1: Cinematic Architectural Corridor (Parallax Image) */}
+      {/* Cinematic Architectural Environment with Smooth Scroll-Driven Camera Push */}
       <div
         ref={bgRef}
         className="absolute inset-0 pointer-events-none will-change-transform"
@@ -67,16 +65,13 @@ export function HeroStory({ locale, dict }: HeroStoryProps) {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-75"
+          className="object-cover object-center opacity-85"
         />
       </div>
 
-      {/* Layer 2: Interactive 3D WebGL Architectural Core */}
-      <HeroScene />
-
-      {/* Layer 3: Editorial Vignette for crisp typography contrast */}
+      {/* Editorial Vignette for crisp typography contrast */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-[#111318]/92 via-[#111318]/55 to-[#111318]/25 pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-[#111318]/92 via-[#111318]/55 to-[#111318]/20 pointer-events-none"
         aria-hidden="true"
       />
       <div

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -12,11 +11,6 @@ import { useMediaPreferences } from "@/lib/useMediaPreferences";
 import type { Locale } from "@/lib/i18n";
 import { getLocalizedPath } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
-
-const FinaleScene = dynamic(() => import("@/components/scenes/FinaleScene"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 bg-transparent" />,
-});
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,9 +30,9 @@ export function FinaleStory({ locale, dict }: FinaleStoryProps) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         bgRef.current,
-        { yPercent: -8, scale: 1.05 },
+        { yPercent: -8, scale: 1.06 },
         {
-          yPercent: 8,
+          yPercent: 6,
           scale: 1,
           ease: "none",
           scrollTrigger: {
@@ -56,7 +50,7 @@ export function FinaleStory({ locale, dict }: FinaleStoryProps) {
 
   return (
     <section ref={containerRef} className="relative bg-[#111318] overflow-hidden">
-      {/* Upper dark cinematic architectural transition */}
+      {/* Upper cinematic architectural horizon */}
       <div className="relative h-56 sm:h-72 lg:h-80 w-full overflow-hidden">
         <div
           ref={bgRef}
@@ -68,12 +62,11 @@ export function FinaleStory({ locale, dict }: FinaleStoryProps) {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-center opacity-80"
+            className="object-cover object-center opacity-85"
           />
         </div>
-        <FinaleScene />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-[#111318]/85 via-transparent to-[#F5F5F2] pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-b from-[#111318]/80 via-transparent to-[#F5F5F2] pointer-events-none"
           aria-hidden="true"
         />
       </div>

@@ -1,30 +1,42 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaPreferences } from "@/lib/useMediaPreferences";
 import type { Dictionary } from "@/lib/dictionaries";
 
-const TransformationScene = dynamic(
-  () => import("@/components/scenes/TransformationScene"),
-  {
-    ssr: false,
-    loading: () => <div className="w-full h-full bg-[#111318]" />,
-  }
-);
-
 gsap.registerPlugin(ScrollTrigger);
 
-// Map each of the 5 chapters to our cinematic architectural backdrops
-const CHAPTER_BACKDROPS = [
-  "/assets/images/hero-bg.jpg", // 01: Dim architectural corridor (The Challenge)
-  "/assets/images/vision-bg.jpg", // 02: Intelligence lattice entering (The Opportunity)
-  "/assets/images/vision-bg.jpg", // 03: Connected systems active (The Transformation)
-  "/assets/images/about-office.jpg", // 04: Clean bright modern studio (The Growth)
-  "/assets/images/finale-bg.jpg", // 05: Ascending horizon (The Future)
+// Realistic architectural environments per chapter
+// (Replaceable 1-for-1 with scene-1-challenge.jpg .. scene-5-kartagotech.jpg once generated)
+const CHAPTER_ENVS = [
+  {
+    src: "/assets/images/hero-bg.jpg",
+    grade: "brightness-75 contrast-110",
+    position: "object-center",
+  },
+  {
+    src: "/assets/images/hero-bg.jpg",
+    grade: "brightness-90 saturate-110",
+    position: "object-right",
+  },
+  {
+    src: "/assets/images/about-office.jpg",
+    grade: "brightness-75 contrast-105",
+    position: "object-left",
+  },
+  {
+    src: "/assets/images/about-office.jpg",
+    grade: "brightness-100",
+    position: "object-center",
+  },
+  {
+    src: "/assets/images/finale-bg.jpg",
+    grade: "brightness-95",
+    position: "object-center",
+  },
 ];
 
 interface TransformationStoryProps {
@@ -33,30 +45,15 @@ interface TransformationStoryProps {
 
 export function TransformationStory({ dict }: TransformationStoryProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const chapterRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const progressRef = useRef<number>(0);
   const [activeChapter, setActiveChapter] = useState(0);
   const { reducedMotion } = useMediaPreferences();
 
   useEffect(() => {
-    if (reducedMotion || !sectionRef.current) {
-      progressRef.current = 0.65;
-      return;
-    }
+    if (reducedMotion || !sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Overall 0 -> 1 scrub across the entire 5-chapter story
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 60%",
-        end: "bottom 40%",
-        scrub: 0.5,
-        onUpdate: (self) => {
-          progressRef.current = self.progress;
-        },
-      });
-
-      // Individual chapter activation triggers
       chapterRefs.current.forEach((el, idx) => {
         if (!el) return;
         ScrollTrigger.create({
@@ -67,6 +64,23 @@ export function TransformationStory({ dict }: TransformationStoryProps) {
           onEnterBack: () => setActiveChapter(idx),
         });
       });
+
+      if (stageRef.current) {
+        gsap.fromTo(
+          stageRef.current,
+          { scale: 1.0 },
+          {
+            scale: 1.06,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -74,7 +88,6 @@ export function TransformationStory({ dict }: TransformationStoryProps) {
 
   const scrollToChapter = (idx: number) => {
     setActiveChapter(idx);
-    progressRef.current = idx / Math.max(1, dict.chapters.length - 1);
     chapterRefs.current[idx]?.scrollIntoView({
       behavior: reducedMotion ? "auto" : "smooth",
       block: "center",
@@ -115,7 +128,7 @@ export function TransformationStory({ dict }: TransformationStoryProps) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
-          {/* Left: 5 Narrative Chapters */}
+          {/* Left: 5 Commercial Story Chapters */}
           <div className="lg:col-span-5 space-y-24 sm:space-y-32 py-4 lg:py-12">
             {dict.chapters.map((chapter, idx) => {
               const isActive = activeChapter === idx;
@@ -169,48 +182,52 @@ export function TransformationStory({ dict }: TransformationStoryProps) {
             })}
           </div>
 
-          {/* Right: Sticky Persistent 3D Transformation Stage */}
+          {/* Right: Sticky Cinematic Commercial Viewport (No floating abstract shapes) */}
           <div className="lg:col-span-7 lg:sticky lg:top-28">
             <div className="relative h-[380px] sm:h-[460px] lg:h-[580px] w-full overflow-hidden border border-white/12 bg-[#111318]">
-              {/* Cross-fading AI-Generated Architectural Backdrops */}
-              {CHAPTER_BACKDROPS.map((src, idx) => (
-                <div
-                  key={`${src}-${idx}`}
-                  className={`absolute inset-0 transition-opacity duration-700 pointer-events-none ${
-                    activeChapter === idx ? "opacity-40" : "opacity-0"
-                  }`}
-                  aria-hidden="true"
-                >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                    className="object-cover object-center"
-                  />
-                </div>
-              ))}
-
-              {/* Atmospheric gradient overlay */}
               <div
-                className="absolute inset-0 bg-gradient-to-t from-[#111318] via-[#111318]/35 to-[#111318]/65 pointer-events-none"
+                ref={stageRef}
+                className="absolute inset-0 will-change-transform"
+              >
+                {CHAPTER_ENVS.map((env, idx) => (
+                  <div
+                    key={`${env.src}-${idx}`}
+                    className={`absolute inset-0 transition-opacity duration-700 pointer-events-none ${
+                      activeChapter === idx ? "opacity-100" : "opacity-0"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <Image
+                      src={env.src}
+                      alt=""
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 60vw"
+                      className={`object-cover ${env.position} ${env.grade}`}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Subtle cinematic vignette */}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-[#111318]/90 via-transparent to-[#111318]/35 pointer-events-none"
                 aria-hidden="true"
               />
 
-              {/* Interactive 3D Business Environment Diorama */}
-              <div className="relative z-10 w-full h-full">
-                <TransformationScene progressRef={progressRef} />
-              </div>
-
-              {/* Stage HUD Footer */}
-              <div className="absolute bottom-0 left-0 right-0 z-20 px-5 py-3.5 border-t border-white/12 bg-[#111318]/80 backdrop-blur-sm flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.14em]">
-                <span className="text-[#8291EA]">
-                  {dict.chapters[activeChapter]?.index} ·{" "}
-                  {dict.chapters[activeChapter]?.tag}
-                </span>
-                <span className="text-white/50 hidden sm:inline">
-                  3D TRANSFORMATION STAGE
-                </span>
+              {/* Chapter Caption HUD */}
+              <div className="absolute bottom-0 left-0 right-0 z-20 px-6 py-5 border-t border-white/12 bg-[#111318]/80 backdrop-blur-md">
+                <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.14em] mb-1.5">
+                  <span className="text-[#8291EA]">
+                    {dict.chapters[activeChapter]?.index} ·{" "}
+                    {dict.chapters[activeChapter]?.tag}
+                  </span>
+                  <span className="text-white/45 hidden sm:inline">
+                    KARTAGOTECH STORY
+                  </span>
+                </div>
+                <p className="text-sm text-white/85 font-medium">
+                  {dict.chapters[activeChapter]?.headline}
+                </p>
               </div>
             </div>
           </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
@@ -10,14 +9,6 @@ import { useMediaPreferences } from "@/lib/useMediaPreferences";
 import type { Locale } from "@/lib/i18n";
 import { getLocalizedPath } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
-
-const ExpertiseScene = dynamic(
-  () => import("@/components/scenes/ExpertiseScene"),
-  {
-    ssr: false,
-    loading: () => <div className="w-full h-full bg-[#F5F5F2]" />,
-  }
-);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,6 +41,8 @@ export function ExpertiseStory({ locale, dict }: ExpertiseStoryProps) {
     return () => ctx.revert();
   }, [reducedMotion]);
 
+  const activeService = dict.items[activeIndex] ?? dict.items[0];
+
   return (
     <section className="py-20 sm:py-28 lg:py-32 bg-[#F5F5F2] border-b border-[#111318]/12">
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
@@ -77,7 +70,7 @@ export function ExpertiseStory({ locale, dict }: ExpertiseStoryProps) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* Left: Storytelling Chapters */}
+          {/* Left: Service Chapters */}
           <div className="lg:col-span-7 divide-y divide-[#111318]/12 border-t border-b border-[#111318]/12">
             {dict.items.map((service, idx) => {
               const isActive = activeIndex === idx;
@@ -126,21 +119,31 @@ export function ExpertiseStory({ locale, dict }: ExpertiseStoryProps) {
             })}
           </div>
 
-          {/* Right: Sticky Shared 3D Metaphor Stage */}
+          {/* Right: Sticky Editorial Service Focus Card (No abstract 3D shapes) */}
           <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <div className="bg-white border border-[#111318]/12 p-4 sm:p-6">
-              <div className="flex items-center justify-between border-b border-[#111318]/10 pb-3 mb-4">
-                <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
-                  {dict.items[activeIndex]?.index} —{" "}
-                  {dict.items[activeIndex]?.title}
+            <div className="bg-white border border-[#111318]/12 p-8 sm:p-10">
+              <div className="flex items-center justify-between border-b border-[#111318]/10 pb-4 mb-8">
+                <span className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA]">
+                  {activeService?.index} — CAPABILITY
                 </span>
-                <span className="text-[10px] font-mono text-[#777777]">
-                  3D METAPHOR
-                </span>
+                <span className="w-2 h-2 bg-[#8291EA]" />
               </div>
-              <div className="h-[280px] sm:h-[340px] lg:h-[380px] w-full bg-[#F5F5F2]/60 border border-[#111318]/8">
-                <ExpertiseScene activeIndex={activeIndex} />
-              </div>
+
+              <h3 className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-[#111318] mb-5">
+                {activeService?.title}
+              </h3>
+
+              <p className="text-[#777777] text-base leading-relaxed mb-8">
+                {activeService?.description}
+              </p>
+
+              <Link
+                href={getLocalizedPath(activeService?.href || "/services", locale)}
+                className="inline-flex items-center gap-2 text-sm font-medium text-[#111318] border-b border-[#111318]/30 pb-1 hover:border-[#8291EA] hover:text-[#8291EA] transition-colors group"
+              >
+                <span>{dict.exploreServices}</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </div>
         </div>
