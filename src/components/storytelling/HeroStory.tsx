@@ -1,18 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { HeroReveal } from "@/components/MotionPrimitives";
+import { useMediaPreferences } from "@/lib/useMediaPreferences";
 import type { Locale } from "@/lib/i18n";
 import { getLocalizedPath } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 
 const HeroScene = dynamic(() => import("@/components/scenes/HeroScene"), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-[#111318]" />,
+  loading: () => <div className="absolute inset-0 bg-transparent" />,
 });
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface HeroStoryProps {
   locale: Locale;
@@ -20,14 +26,61 @@ interface HeroStoryProps {
 }
 
 export function HeroStory({ locale, dict }: HeroStoryProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const { reducedMotion } = useMediaPreferences();
+
+  useEffect(() => {
+    if (reducedMotion || !sectionRef.current || !bgRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(bgRef.current, {
+        yPercent: 14,
+        scale: 1.08,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [reducedMotion]);
+
   return (
-    <section className="relative min-h-[calc(100vh-5rem)] bg-[#111318] text-white overflow-hidden flex flex-col justify-between border-b border-white/10">
-      {/* Lazy-loaded 3D WebGL Environment */}
+    <section
+      ref={sectionRef}
+      className="relative min-h-[calc(100vh-5rem)] bg-[#111318] text-white overflow-hidden flex flex-col justify-between border-b border-white/10"
+    >
+      {/* Layer 1: Cinematic Architectural Corridor (Parallax Image) */}
+      <div
+        ref={bgRef}
+        className="absolute inset-0 pointer-events-none will-change-transform"
+        aria-hidden="true"
+      >
+        <Image
+          src="/assets/images/hero-bg.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-75"
+        />
+      </div>
+
+      {/* Layer 2: Interactive 3D WebGL Architectural Core */}
       <HeroScene />
 
-      {/* Subtle architectural vignette for crisp text legibility */}
+      {/* Layer 3: Editorial Vignette for crisp typography contrast */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-[#111318]/90 via-[#111318]/55 to-transparent pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-[#111318]/92 via-[#111318]/55 to-[#111318]/25 pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-[#111318] via-transparent to-[#111318]/45 pointer-events-none"
         aria-hidden="true"
       />
 
@@ -52,7 +105,7 @@ export function HeroStory({ locale, dict }: HeroStoryProps) {
           </HeroReveal>
 
           <HeroReveal delay={0.2}>
-            <p className="mt-8 sm:mt-10 text-lg sm:text-xl text-white/70 leading-relaxed max-w-xl">
+            <p className="mt-8 sm:mt-10 text-lg sm:text-xl text-white/75 leading-relaxed max-w-xl">
               {dict.home.hero.supporting}
             </p>
           </HeroReveal>

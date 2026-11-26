@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
@@ -62,24 +63,38 @@ export default function AboutPage({ params }: { params: { lang: string } }) {
 
       {/* Who We Are */}
       <section className="py-20 sm:py-28 bg-white border-b border-[#111318]/12">
-        <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <FadeIn className="lg:col-span-5">
-            <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-3">
-              {dict.aboutPage.whoWeAre.label}
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-editorial text-[#111318]">
-              {dict.aboutPage.whoWeAre.title}
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.08} className="lg:col-span-7 space-y-6">
-            {dict.aboutPage.whoWeAre.body.map((paragraph) => (
-              <p
-                key={paragraph}
-                className="text-lg text-[#777777] leading-relaxed"
-              >
-                {paragraph}
+        <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+            <FadeIn className="lg:col-span-5">
+              <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-3">
+                {dict.aboutPage.whoWeAre.label}
               </p>
-            ))}
+              <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-editorial text-[#111318]">
+                {dict.aboutPage.whoWeAre.title}
+              </h2>
+            </FadeIn>
+            <FadeIn delay={0.08} className="lg:col-span-7 space-y-6">
+              {dict.aboutPage.whoWeAre.body.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="text-lg text-[#777777] leading-relaxed"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </FadeIn>
+          </div>
+
+          <FadeIn delay={0.12}>
+            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden border border-[#111318]/12 bg-[#111318]">
+              <Image
+                src="/assets/images/about-office.jpg"
+                alt="KartagoTech Agency architectural studio environment"
+                fill
+                sizes="(max-width: 1360px) 100vw, 1360px"
+                className="object-cover object-center"
+              />
+            </div>
           </FadeIn>
         </div>
       </section>

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaPreferences } from "@/lib/useMediaPreferences";
@@ -20,6 +21,7 @@ interface VisionStoryProps {
 
 export function VisionStory({ dict }: VisionStoryProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<number>(0);
   const stageRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const { reducedMotion } = useMediaPreferences();
@@ -48,6 +50,24 @@ export function VisionStory({ dict }: VisionStoryProps) {
           });
         },
       });
+
+      if (bgRef.current) {
+        gsap.fromTo(
+          bgRef.current,
+          { scale: 1.0, yPercent: -6 },
+          {
+            scale: 1.08,
+            yPercent: 6,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -59,7 +79,23 @@ export function VisionStory({ dict }: VisionStoryProps) {
       ref={sectionRef}
       className="relative bg-[#111318] text-white py-24 sm:py-32 lg:py-40 overflow-hidden"
     >
-      <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* Cinematic Crystalline Lattice Depth Backdrop */}
+      <div
+        ref={bgRef}
+        className="absolute inset-0 pointer-events-none will-change-transform"
+        aria-hidden="true"
+      >
+        <Image
+          src="/assets/images/vision-bg.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-right opacity-35 mix-blend-screen"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#111318] via-[#111318]/80 to-[#111318]/45" />
+      </div>
+
+      <div className="relative z-10 max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left: Editorial Copy */}
         <div className="lg:col-span-6 relative z-10">
           <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-4">
@@ -96,7 +132,7 @@ export function VisionStory({ dict }: VisionStoryProps) {
 
       {/* Smooth architectural transition gradient into off-white #F5F5F2 */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-[#F5F5F2] pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-[#F5F5F2] pointer-events-none z-10"
         aria-hidden="true"
       />
     </section>
