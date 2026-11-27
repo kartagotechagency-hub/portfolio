@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
@@ -221,19 +220,7 @@ export function ScrollWorld3DHomepage({ locale, dict }: Props) {
               onWebGLError={() => setWebglError(true)}
             />
           ) : (
-            <div className="relative w-full h-full">
-              {chapters.map((ch, idx) => (
-                <Image
-                  key={ch.id}
-                  src={ch.still}
-                  alt=""
-                  fill
-                  sizes="100vw"
-                  className="object-cover transition-opacity duration-500"
-                  style={{ opacity: idx === activeIndex ? 1 : 0 }}
-                />
-              ))}
-            </div>
+            <div className="w-full h-full bg-[#F7F6F2] swiss-grid-bg" aria-hidden="true" />
           )}
         </div>
 
