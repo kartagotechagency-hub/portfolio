@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { isValidLocale, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
-import { ScrollWorld3DHomepage } from "@/components/storytelling/ScrollWorld3DHomepage";
+import { ScrollAnimatedHomepage } from "@/components/storytelling/ScrollAnimatedHomepage";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -39,5 +39,5 @@ export default function HomePage({ params }: { params: { lang: string } }) {
   const locale: Locale = params.lang;
   const dict = getDictionary(locale);
 
-  return <ScrollWorld3DHomepage locale={locale} dict={dict} />;
+  return <ScrollAnimatedHomepage locale={locale} dict={dict} />;
 }
