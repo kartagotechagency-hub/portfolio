@@ -59,7 +59,7 @@ export function Navbar({ locale, dict }: NavbarProps) {
   const frPath = getLocalizedPath(pathname, "fr");
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#F7F6F2]/85 backdrop-blur-md border-b border-[#D8DFEC]">
+    <header className="sticky top-0 z-[200] w-full bg-[#F7F6F2]/85 backdrop-blur-md border-b border-[#D8DFEC]">
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
         {/* Left: Logo */}
         <Link
