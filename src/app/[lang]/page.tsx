@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { isValidLocale, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
-import { HeadquartersExperience } from "@/components/architecture/HeadquartersExperience";
+import { WorldMovedStory } from "@/components/storytelling/WorldMovedStory";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -39,5 +39,5 @@ export default function HomePage({ params }: { params: { lang: string } }) {
   const locale: Locale = params.lang;
   const dict = getDictionary(locale);
 
-  return <HeadquartersExperience locale={locale} dict={dict} />;
+  return <WorldMovedStory locale={locale} dict={dict} />;
 }
