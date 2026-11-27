@@ -6,7 +6,7 @@ import { isValidLocale, getLocalizedPath, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
 import { projects } from "@/data/projects";
 import { FadeIn } from "@/components/MotionPrimitives";
-import { CommercialStory } from "@/components/storytelling/CommercialStory";
+import { ScrollVideoStory } from "@/components/storytelling/ScrollVideoStory";
 import { ExpertiseStory } from "@/components/storytelling/ExpertiseStory";
 import { ApproachStory } from "@/components/storytelling/ApproachStory";
 import { FinaleStory } from "@/components/storytelling/FinaleStory";
@@ -48,8 +48,8 @@ export default function HomePage({ params }: { params: { lang: string } }) {
 
   return (
     <>
-      {/* 1. THE MAIN EXPERIENCE — 5-Chapter Cinematic Business Transformation Film */}
-      <CommercialStory locale={locale} dict={dict} />
+      {/* 1. CINEMATIC STORY — 4 scroll-synchronized videos */}
+      <ScrollVideoStory locale={locale} dict={dict} />
 
       {/* 2. COMPACT AGENCY PRESENTATION (After Chapter 05 concludes) */}
       <div id="agency-overview">

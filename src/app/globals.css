@@ -48,3 +48,13 @@
   );
   background-size: calc(100% / 12) 100%;
 }
+
+/* Cinematic story media: portrait crop on mobile keeps the owner in frame */
+.story-media {
+  object-position: var(--pos-m, 40% 30%);
+}
+@media (min-width: 768px) {
+  .story-media {
+    object-position: var(--pos-d, 50% 30%);
+  }
+}
