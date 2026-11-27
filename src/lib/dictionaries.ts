@@ -439,7 +439,7 @@ const en: Dictionary = {
     },
     contactCta: {
       label: "05 — Next Step",
-      headline: "Let's build what's next.",
+      headline: "Have a business challenge?",
       button: "Start a project",
     },
   },

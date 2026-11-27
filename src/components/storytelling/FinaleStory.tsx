@@ -1,9 +1,8 @@
 import React from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { Mail, Globe, Languages } from "lucide-react";
 import { FadeIn } from "@/components/MotionPrimitives";
+import { ContactForm } from "@/components/ContactForm";
 import type { Locale } from "@/lib/i18n";
-import { getLocalizedPath } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface FinaleStoryProps {
@@ -11,37 +10,104 @@ interface FinaleStoryProps {
   dict: Dictionary;
 }
 
+const FINALE_COPY: Record<
+  Locale,
+  {
+    headlineLine1: string;
+    headlineLine2: string;
+    supporting: string;
+    directEmailLabel: string;
+  }
+> = {
+  en: {
+    headlineLine1: "HAVE A BUSINESS",
+    headlineLine2: "CHALLENGE?",
+    supporting: "Let's find the right digital solution.",
+    directEmailLabel: "Direct email",
+  },
+  fr: {
+    headlineLine1: "UN DÉFI",
+    headlineLine2: "MÉTIER ?",
+    supporting: "Trouvons la bonne solution digitale.",
+    directEmailLabel: "E-mail direct",
+  },
+};
+
 /**
- * Strong, clean final Contact CTA closing the homepage.
+ * Final conversion section with inline working ContactForm and direct email fallback.
  */
 export function FinaleStory({ locale, dict }: FinaleStoryProps) {
+  const copy = FINALE_COPY[locale];
+
   return (
-    <section className="bg-white text-[#111318] py-16 sm:py-24 border-t border-[#111318]/10">
+    <section
+      className="bg-[#111318] text-white py-20 sm:py-28"
+      id="contact-cta"
+    >
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
         <FadeIn>
-          <p className="text-xs font-mono uppercase tracking-[0.16em] text-[#8291EA] mb-3">
-            {dict.home.contactCta.label}
-          </p>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div>
-              <h2 className="font-display text-3xl sm:text-5xl font-medium tracking-tightest leading-[1.06] text-[#111318] max-w-3xl mb-4">
-                {dict.home.contactCta.headline}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {/* Left — headline & direct contact info */}
+            <div className="lg:col-span-5">
+              <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#8291EA] mb-4">
+                {dict.home.contactCta.label}
+              </p>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.03] tracking-tight text-white mb-5">
+                {copy.headlineLine1}
+                <br />
+                {copy.headlineLine2}
               </h2>
-              <a
-                href={`mailto:${dict.contactPage.emailValue}`}
-                className="text-sm font-mono text-[#777777] hover:text-[#8291EA] transition-colors"
-              >
-                {dict.contactPage.emailValue}
-              </a>
+              <p className="text-base sm:text-lg text-white/75 leading-relaxed max-w-md mb-10">
+                {copy.supporting}
+              </p>
+
+              <div className="space-y-4 border-t border-white/12 pt-8">
+                <div className="flex items-start gap-3.5 p-4 border border-white/12 bg-white/5">
+                  <Mail className="w-4 h-4 text-[#8291EA] shrink-0 mt-1" />
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-white/50 mb-0.5">
+                      {copy.directEmailLabel}
+                    </p>
+                    <a
+                      href={`mailto:${dict.contactPage.emailValue}`}
+                      className="text-sm font-medium text-white hover:text-[#8291EA] transition-colors break-all"
+                    >
+                      {dict.contactPage.emailValue}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-start gap-3 p-4 border border-white/12 bg-white/5">
+                    <Globe className="w-4 h-4 text-[#8291EA] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/50 mb-0.5">
+                        {dict.contactPage.presenceLabel}
+                      </p>
+                      <p className="text-xs font-medium text-white">
+                        {dict.contactPage.presenceValue}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-4 border border-white/12 bg-white/5">
+                    <Languages className="w-4 h-4 text-[#8291EA] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-[10px] font-mono uppercase tracking-[0.14em] text-white/50 mb-0.5">
+                        {dict.contactPage.responseLabel}
+                      </p>
+                      <p className="text-xs font-medium text-white">
+                        {dict.contactPage.responseValue}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <Link
-              href={getLocalizedPath("/contact", locale)}
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#8291EA] text-[#111318] font-medium text-sm tracking-wide hover:bg-[#6e7fe3] transition-colors shrink-0"
-            >
-              <span>{dict.home.contactCta.button}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            {/* Right — Working Contact Form */}
+            <div className="lg:col-span-7">
+              <ContactForm dict={dict.contactPage.form} />
+            </div>
           </div>
         </FadeIn>
       </div>
