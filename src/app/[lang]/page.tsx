@@ -2,9 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { isValidLocale, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionaries";
-import { ScrollVideoStory } from "@/components/storytelling/ScrollVideoStory";
-import { ExpertiseStory } from "@/components/storytelling/ExpertiseStory";
-import { FinaleStory } from "@/components/storytelling/FinaleStory";
+import { HeadquartersExperience } from "@/components/architecture/HeadquartersExperience";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -41,16 +39,5 @@ export default function HomePage({ params }: { params: { lang: string } }) {
   const locale: Locale = params.lang;
   const dict = getDictionary(locale);
 
-  return (
-    <>
-      {/* 1. CINEMATIC BRAND FILM — 4 scroll-synchronized scenes */}
-      <ScrollVideoStory locale={locale} dict={dict} />
-
-      {/* 2. CONCISE WHAT WE DO */}
-      <ExpertiseStory locale={locale} dict={dict.home.services} />
-
-      {/* 3. FINAL CONTACT SECTION */}
-      <FinaleStory locale={locale} dict={dict} />
-    </>
-  );
+  return <HeadquartersExperience locale={locale} dict={dict} />;
 }

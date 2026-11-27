@@ -28,7 +28,7 @@ export function Footer({ locale, dict }: FooterProps) {
   }));
 
   return (
-    <footer className="bg-[#111318] text-white border-t border-white/10">
+    <footer className="relative z-10 bg-[#111318] text-white border-t border-white/10">
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-10 pb-14 border-b border-white/10">
           {/* Brand Column */}
