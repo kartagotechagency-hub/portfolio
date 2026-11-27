@@ -3,29 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --bg-ivory: #F5F5F2;
-  --bg-obsidian: #111318;
-  --accent-periwinkle: #8291EA;
-  --text-secondary: #777777;
+  --bg-ivory: #F7F6F2;
+  --bg-obsidian: #142B52;
+  --accent-periwinkle: #245BDB;
+  --text-secondary: #4A5870;
+  --ink: #142B52;
+  --blue: #245BDB;
+  --ivory: #F7F6F2;
+  --soft: #E9EEF7;
+  --line: #D8DFEC;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #F5F5F2;
-    color: #111318;
+    background-color: #F7F6F2;
+    color: #4A5870;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-color: #F5F5F2;
-    color: #111318;
+    background-color: #F7F6F2;
+    color: #4A5870;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   ::selection {
-    background-color: #8291EA;
+    background-color: #245BDB;
     color: #FFFFFF;
   }
 }

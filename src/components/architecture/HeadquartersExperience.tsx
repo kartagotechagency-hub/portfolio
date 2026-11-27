@@ -3,20 +3,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUpRight,
-  Building2,
-  Layers,
-  Mail,
-  Monitor,
-  Smartphone,
-  Sparkles,
-  Workflow,
-} from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Mail } from "lucide-react";
 import { useMediaPreferences } from "@/lib/useMediaPreferences";
 import { ContactForm } from "@/components/ContactForm";
+import { projects } from "@/data/projects";
 import type { Locale } from "@/lib/i18n";
 import { getLocalizedPath } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
@@ -32,451 +22,330 @@ interface HeadquartersExperienceProps {
   dict: Dictionary;
 }
 
-type SpaceId =
-  | "exterior"
-  | "services"
-  | "software-studio"
-  | "ai-lab"
-  | "automation-hub"
-  | "digital-experiences"
-  | "contact";
-
-interface WingMeta {
-  id: SpaceId;
+interface RoomContent {
+  id: string;
   index: string;
-  name: Record<Locale, string>;
-  subtitle: Record<Locale, string>;
-  problem: Record<Locale, string>;
-  solution: Record<Locale, string>;
-  serviceHref: string;
-  projectHref: string;
-  projectLabel: Record<Locale, string>;
+  title: Record<Locale, string>;
+  tag: Record<Locale, string>;
+  description: Record<Locale, string>;
+  capabilities: Record<Locale, string[]>;
+  cta?: {
+    label: Record<Locale, string>;
+    href: string;
+  };
 }
 
-const WINGS: WingMeta[] = [
+const ROOMS: RoomContent[] = [
   {
-    id: "software-studio",
+    id: "entrance",
+    index: "00",
+    title: {
+      en: "KartagoTech Agency",
+      fr: "KartagoTech Agency",
+    },
+    tag: {
+      en: "International Digital Technology Agency",
+      fr: "Agence Technologique Internationale",
+    },
+    description: {
+      en: "Custom software, web & mobile applications, applied AI, and workflow automation for ambitious businesses. Step inside to explore our building, department by department.",
+      fr: "Logiciels sur mesure, applications web et mobiles, IA appliquée et automatisation des processus pour les entreprises ambitieuses. Poussez la porte : nous vous faisons visiter nos bureaux, département par département.",
+    },
+    capabilities: {
+      en: [
+        "Custom Software & Web Platforms",
+        "AI Assistants & Intelligent Integrations",
+        "RPA & Business Process Automation",
+      ],
+      fr: [
+        "Logiciels sur Mesure & Plateformes Web",
+        "Assistants IA & Intégrations Intelligentes",
+        "RPA & Automatisation des Processus Métier",
+      ],
+    },
+  },
+  {
+    id: "direction",
     index: "01",
-    name: { en: "SOFTWARE STUDIO", fr: "SOFTWARE STUDIO" },
-    subtitle: {
-      en: "Websites, applications, custom software and digital platforms.",
-      fr: "Sites web, applications, logiciels sur mesure et plateformes digitales.",
+    title: { en: "Direction", fr: "Direction" },
+    tag: { en: "Vision and strategy", fr: "Vision et stratégie" },
+    description: {
+      en: "Where technical architecture meets business reality. Every engagement begins with structured scoping, clear milestones, and honest engineering guidance.",
+      fr: "Là où se décident les orientations techniques de l'agence et où chaque projet est cadré avec clarté et rigueur.",
     },
-    problem: {
-      en: "Off-the-shelf tools force growing teams into disconnected spreadsheets and rigid workarounds.",
-      fr: "Les outils génériques imposent aux équipes des tableurs dispersés et des contournements rigides.",
+    capabilities: {
+      en: [
+        "Technical Architecture & Product Scoping",
+        "Digital Transformation Roadmaps",
+        "Direct Senior Engineering Partnership",
+      ],
+      fr: [
+        "Architecture Technique & Cadrage Produit",
+        "Feuilles de Route Transformation Digitale",
+        "Partenariat Direct avec l'Ingénierie",
+      ],
     },
-    solution: {
-      en: "We architect fast web platforms, multi-tenant SaaS products, and custom operational software tailored to your exact workflows.",
-      fr: "Nous concevons des plateformes web rapides, des SaaS multi-locataires et des logiciels métier sur mesure adaptés à vos flux.",
-    },
-    serviceHref: "/services#custom-software",
-    projectHref: "/work/chatbotpro",
-    projectLabel: { en: "Case study: ChatbotPro", fr: "Étude de cas : ChatbotPro" },
   },
   {
-    id: "ai-lab",
+    id: "development",
     index: "02",
-    name: { en: "AI LAB", fr: "AI LAB" },
-    subtitle: {
-      en: "AI assistants, conversational AI, intelligent integrations and AI-powered tools.",
-      fr: "Assistants IA, IA conversationnelle, intégrations intelligentes et outils propulsés par l'IA.",
+    title: { en: "Development", fr: "Développement" },
+    tag: {
+      en: "Websites, applications, custom software",
+      fr: "Sites, applications, logiciels",
     },
-    problem: {
-      en: "Teams spend hours searching fragmented knowledge or answering repetitive inquiries without reliable guardrails.",
-      fr: "Les équipes perdent des heures à chercher dans des documents dispersés ou à répondre aux mêmes demandes.",
+    description: {
+      en: "The engineering studio building your web platforms, mobile applications, multi-tenant SaaS products, and connected business software.",
+      fr: "L'équipe qui construit vos plateformes web, vos applications mobiles, vos produits SaaS et vos logiciels métier sur mesure.",
     },
-    solution: {
-      en: "We deploy grounded RAG assistants with verifiable citations, embeddable copilots, and real-time voice agents.",
-      fr: "Nous déployons des assistants RAG sourcés, des copilotes embarqués et des agents vocaux temps réel.",
+    capabilities: {
+      en: [
+        "Next.js, TypeScript & Modern Web Apps",
+        "Multi-Tenant SaaS & API Integrations",
+        "Maintainable, Documented Codebases",
+      ],
+      fr: [
+        "Next.js, TypeScript & Applications Web",
+        "SaaS Multi-Locataires & Intégrations API",
+        "Bases de Code Maintenables et Documentées",
+      ],
     },
-    serviceHref: "/services#ai-automation",
-    projectHref: "/work/lexassist",
-    projectLabel: { en: "Case study: LexAssist", fr: "Étude de cas : LexAssist" },
+    cta: {
+      label: { en: "Explore software services", fr: "Voir le développement" },
+      href: "/services#custom-software",
+    },
   },
   {
-    id: "automation-hub",
+    id: "design",
     index: "03",
-    name: { en: "AUTOMATION HUB", fr: "AUTOMATION HUB" },
-    subtitle: {
-      en: "RPA, workflow automation and business process optimization.",
-      fr: "RPA, automatisation des workflows et optimisation des processus métier.",
+    title: { en: "Design & 3D", fr: "Design & 3D" },
+    tag: {
+      en: "Interfaces and immersive experiences",
+      fr: "Interfaces et expériences immersives",
     },
-    problem: {
-      en: "Manual data entry across legacy portals, PDFs, and back-office tools drains operational capacity and creates errors.",
-      fr: "La saisie manuelle entre portails, PDF et outils internes consomme du temps et génère des erreurs.",
+    description: {
+      en: "Product interfaces, brand systems, and interactive 3D web experiences crafted for clarity, speed, and accessibility across desktop and mobile.",
+      fr: "Maquettes d'interfaces, systèmes visuels et scènes 3D interactives conçus pour la clarté et la fluidité sur chaque écran.",
     },
-    solution: {
-      en: "We build deterministic RPA pipelines for browser workflows, document extraction, data sync, and scheduled reporting.",
-      fr: "Nous bâtissons des pipelines RPA déterministes pour l'automatisation navigateur, l'extraction documentaire et le reporting.",
+    capabilities: {
+      en: [
+        "UI/UX Design Systems & Prototyping",
+        "Interactive WebGL & Three.js Scenes",
+        "Responsive & Accessible Interfaces",
+      ],
+      fr: [
+        "Systèmes Design UI/UX & Prototypage",
+        "Scènes Interactives WebGL & Three.js",
+        "Interfaces Responsives et Accessibles",
+      ],
     },
-    serviceHref: "/services#rpa-automation",
-    projectHref: "/work/rpa-business-process-automation",
-    projectLabel: { en: "Case study: RPA Automation", fr: "Étude de cas : Automatisation RPA" },
+    cta: {
+      label: { en: "Explore digital experiences", fr: "Voir nos services design" },
+      href: "/services#web-development",
+    },
   },
   {
-    id: "digital-experiences",
+    id: "ai",
     index: "04",
-    name: { en: "DIGITAL EXPERIENCES", fr: "EXPÉRIENCES DIGITALES" },
-    subtitle: {
-      en: "Digital transformation, connected systems and modern digital experiences.",
-      fr: "Transformation digitale, systèmes connectés et expériences numériques modernes.",
+    title: { en: "AI & Automation", fr: "IA & automatisation" },
+    tag: {
+      en: "Assistants and workflows",
+      fr: "Assistants et workflows",
     },
-    problem: {
-      en: "Legacy processes and siloed tools slow down customer journeys and limit visibility across operations.",
-      fr: "Les processus hérités et outils cloisonnés ralentissent les parcours clients et limitent la visibilité.",
+    description: {
+      en: "Practical AI assistants, grounded RAG knowledge search, real-time voice agents, and deterministic RPA pipelines that eliminate repetitive manual work.",
+      fr: "Des assistants IA fiables, moteurs de recherche RAG sourcés, agents vocaux temps réel et pipelines RPA déterministes qui automatisent les tâches répétitives.",
     },
-    solution: {
-      en: "We unify disconnected tools into coherent, Swiss-grade digital ecosystems designed for clarity across desktop and mobile.",
-      fr: "Nous unifions vos outils en écosystèmes digitaux cohérents, conçus pour la clarté sur ordinateur et mobile.",
+    capabilities: {
+      en: [
+        "Grounded RAG & Conversational AI",
+        "Real-Time Voice & Telephony Agents",
+        "Deterministic RPA & Document Extraction",
+      ],
+      fr: [
+        "RAG Sourcé & IA Conversationnelle",
+        "Agents Vocaux Temps Réel & Téléphonie",
+        "RPA Déterministe & Extraction Documentaire",
+      ],
     },
-    serviceHref: "/services#digital-transformation",
-    projectHref: "/work/website-and-elearning-platform",
-    projectLabel: { en: "Case study: Web & LMS", fr: "Étude de cas : Web & LMS" },
+    cta: {
+      label: { en: "Explore AI & RPA", fr: "Voir IA & RPA" },
+      href: "/services#ai-automation",
+    },
+  },
+  {
+    id: "clients",
+    index: "05",
+    title: { en: "Clients", fr: "Clients" },
+    tag: {
+      en: "Partnership and delivery",
+      fr: "Relation et accompagnement",
+    },
+    description: {
+      en: "We partner with ambitious organizations across Europe, MENA, and North America—delivering connected digital systems tailored to each industry's operational reality.",
+      fr: "Nous accompagnons des entreprises ambitieuses en France et à l'international avec des systèmes digitaux connectés adaptés à chaque secteur d'activité.",
+    },
+    capabilities: {
+      en: [
+        "B2B SaaS, Legal & Knowledge Teams",
+        "Education, Operations & Back-Office",
+        "Bilingual EN / FR Remote Delivery",
+      ],
+      fr: [
+        "SaaS B2B, Juridique & Équipes Métier",
+        "Formation, Opérations & Back-Office",
+        "Livraison Bilingue FR / EN à Distance",
+      ],
+    },
+  },
+  {
+    id: "projects",
+    index: "06",
+    title: { en: "Projects", fr: "Projets" },
+    tag: {
+      en: "Delivery and realizations",
+      fr: "Gestion et réalisations",
+    },
+    description: {
+      en: "Explore real KartagoTech platforms spanning multi-tenant AI SaaS, legal RAG & voice agents, RPA workflow automation, and web platforms.",
+      fr: "Découvrez nos réalisations concrètes : SaaS IA multi-locataires, RAG juridique & agent vocal, automatisation RPA et plateformes web.",
+    },
+    capabilities: {
+      en: [],
+      fr: [],
+    },
+    cta: {
+      label: { en: "View all 7 projects", fr: "Voir les 7 projets" },
+      href: "/work",
+    },
+  },
+  {
+    id: "contact",
+    index: "07",
+    title: { en: "Reception & Contact", fr: "Accueil & contact" },
+    tag: {
+      en: "Let's discuss your project",
+      fr: "Parlons de votre projet",
+    },
+    description: {
+      en: "Tell us about your operational challenge, timeline, and goals. Every inquiry is reviewed directly by our engineering team.",
+      fr: "Décrivez-nous votre projet, vos enjeux et vos objectifs en quelques lignes. Chaque demande est étudiée directement par notre équipe.",
+    },
+    capabilities: {
+      en: [],
+      fr: [],
+    },
   },
 ];
-
-const COPY = {
-  en: {
-    exteriorEyebrow: "KARTAGOTECH AGENCY",
-    exteriorHeadline: "A NEW WAY TO BUILD WHAT'S NEXT.",
-    exteriorBody:
-      "We build custom software, practical AI solutions and intelligent automation for ambitious businesses.",
-    enterBuilding: "Enter the building",
-    atriumEyebrow: "CENTRAL ATRIUM",
-    atriumTitle: "Four innovation spaces. One technology ecosystem.",
-    atriumBody:
-      "Select an area below or continue scrolling to explore how software, AI, and automation come together.",
-    exploreWork: "Explore selected work",
-    problemLabel: "Business Challenge",
-    solutionLabel: "KartagoTech Solution",
-    demoLabel: "Interactive Demo",
-    viewService: "Explore service",
-    meetingEyebrow: "FINAL MEETING SPACE",
-    meetingHeadline: "LET'S BUILD WHAT'S NEXT.",
-    meetingBody:
-      "Have a business challenge or an idea worth building? Let's find the right technology solution together.",
-    directEmail: "Direct email",
-    spaces: [
-      { id: "exterior", label: "Exterior" },
-      { id: "services", label: "Central Atrium" },
-      { id: "software-studio", label: "Software Studio" },
-      { id: "ai-lab", label: "AI Lab" },
-      { id: "automation-hub", label: "Automation Hub" },
-      { id: "digital-experiences", label: "Digital Experiences" },
-      { id: "contact", label: "Meeting Space" },
-    ],
-  },
-  fr: {
-    exteriorEyebrow: "KARTAGOTECH AGENCY",
-    exteriorHeadline: "UNE NOUVELLE FAÇON DE BÂTIR LA SUITE.",
-    exteriorBody:
-      "Nous concevons des logiciels sur mesure, des solutions IA concrètes et des automatisations intelligentes pour les entreprises ambitieuses.",
-    enterBuilding: "Entrer dans le bâtiment",
-    atriumEyebrow: "ATRIUM CENTRAL",
-    atriumTitle: "Quatre espaces d'innovation. Un écosystème technologique.",
-    atriumBody:
-      "Sélectionnez un espace ci-dessous ou poursuivez le défilement pour découvrir comment logiciel, IA et automatisation s'unissent.",
-    exploreWork: "Découvrir nos projets",
-    problemLabel: "Enjeu métier",
-    solutionLabel: "Solution KartagoTech",
-    demoLabel: "Démo interactive",
-    viewService: "Voir le service",
-    meetingEyebrow: "ESPACE RÉUNION",
-    meetingHeadline: "CONSTRUISONS LA SUITE.",
-    meetingBody:
-      "Un défi métier ou une idée à concrétiser ? Trouvons ensemble la bonne solution technologique.",
-    directEmail: "E-mail direct",
-    spaces: [
-      { id: "exterior", label: "Extérieur" },
-      { id: "services", label: "Atrium Central" },
-      { id: "software-studio", label: "Software Studio" },
-      { id: "ai-lab", label: "AI Lab" },
-      { id: "automation-hub", label: "Automation Hub" },
-      { id: "digital-experiences", label: "Expériences Digitales" },
-      { id: "contact", label: "Salle de Réunion" },
-    ],
-  },
-} as const;
-
-const WING_ICONS = [Building2, Sparkles, Workflow, Layers];
-
-function WingInteractiveDemo({ wingId, locale }: { wingId: SpaceId; locale: Locale }) {
-  const [studioMode, setStudioMode] = useState<"saas" | "embed">("saas");
-  const [aiMode, setAiMode] = useState<"rag" | "voice">("rag");
-  const [rpaStep, setRpaStep] = useState<number>(0);
-  const [deviceMode, setDeviceMode] = useState<"desktop" | "mobile">("desktop");
-
-  if (wingId === "software-studio") {
-    return (
-      <div className="bg-[#111318] text-white p-4 border border-[#111318]">
-        <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
-          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
-            MULTI-TENANT SAAS // STUDIO
-          </span>
-          <div className="inline-flex border border-white/15 text-[10px] font-mono">
-            <button
-              type="button"
-              onClick={() => setStudioMode("saas")}
-              className={`px-2 py-0.5 ${studioMode === "saas" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
-            >
-              Workspace
-            </button>
-            <button
-              type="button"
-              onClick={() => setStudioMode("embed")}
-              className={`px-2 py-0.5 ${studioMode === "embed" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
-            >
-              HTML/JS Embed
-            </button>
-          </div>
-        </div>
-        {studioMode === "saas" ? (
-          <div className="space-y-2 text-xs">
-            <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
-              <span className="text-white/80">Tenant Isolation & Roles</span>
-              <span className="font-mono text-[10px] text-[#8291EA]">ACTIVE</span>
-            </div>
-            <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
-              <span className="text-white/80">Operational API & Webhooks</span>
-              <span className="font-mono text-[10px] text-white/60">REST / TS</span>
-            </div>
-          </div>
-        ) : (
-          <div className="p-3 bg-[#1A1D24] border border-[#8291EA]/40 font-mono text-[11px] text-white/85 leading-relaxed">
-            {`<script src="cdn.chatbotpro.io/w.js"`}
-            <br />
-            {`  data-tenant="org_94a2" async />`}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  if (wingId === "ai-lab") {
-    return (
-      <div className="bg-[#111318] text-white p-4 border border-[#111318]">
-        <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
-          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
-            AI LAB // LIVE SYSTEM VIEW
-          </span>
-          <div className="inline-flex border border-white/15 text-[10px] font-mono">
-            <button
-              type="button"
-              onClick={() => setAiMode("rag")}
-              className={`px-2 py-0.5 ${aiMode === "rag" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
-            >
-              Local RAG
-            </button>
-            <button
-              type="button"
-              onClick={() => setAiMode("voice")}
-              className={`px-2 py-0.5 ${aiMode === "voice" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
-            >
-              Voice SIP
-            </button>
-          </div>
-        </div>
-        {aiMode === "rag" ? (
-          <div className="space-y-2 text-xs">
-            <p className="text-white/60 font-mono text-[10px]">
-              {locale === "fr" ? "REQUÊTE :" : "QUERY:"} &quot;Notice period for renewal?&quot;
-            </p>
-            <div className="p-2.5 bg-white/5 border border-white/10">
-              <p className="text-white/90 leading-relaxed">
-                90 days written delivery required prior to renewal.
-              </p>
-              <p className="mt-1.5 text-[10px] font-mono text-[#8291EA]">
-                CITE: Lease_Agreement.pdf · Page 12, Clause 4.2
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-2 text-xs">
-            <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
-              <span>Asterisk SIP Trunk → FastAPI WS</span>
-              <span className="font-mono text-[10px] text-[#8291EA]">FULL-DUPLEX</span>
-            </div>
-            <div className="p-2.5 bg-[#8291EA]/15 border border-[#8291EA]/40 flex justify-between">
-              <span>OpenAI Realtime Streaming + VAD</span>
-              <span className="font-mono text-[10px] text-white">LOW LATENCY</span>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  if (wingId === "automation-hub") {
-    const steps = [
-      { label: "01. Browser Capture", detail: "Headless portal navigation & form extraction" },
-      { label: "02. Document Parsing", detail: "Structured PDF, invoice & XLS field extraction" },
-      { label: "03. Validation & Sync", detail: "Idempotent checks across ERP & CRM targets" },
-      { label: "04. Scheduled Report", detail: "Automated CSV/PDF audit summary delivery" },
-    ];
-    return (
-      <div className="bg-[#111318] text-white p-4 border border-[#111318]">
-        <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
-          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
-            RPA PIPELINE // STEP INSPECTOR
-          </span>
-          <span className="text-[10px] font-mono text-white/50">CLICK STEP</span>
-        </div>
-        <div className="grid grid-cols-2 gap-1.5 mb-2.5">
-          {steps.map((s, idx) => (
-            <button
-              key={s.label}
-              type="button"
-              onClick={() => setRpaStep(idx)}
-              className={`text-left px-2.5 py-2 text-[10px] font-mono border transition-colors ${
-                rpaStep === idx
-                  ? "border-[#8291EA] bg-[#8291EA]/20 text-white"
-                  : "border-white/10 bg-white/5 text-white/60 hover:text-white"
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-        <div className="p-2.5 bg-white/5 border border-white/10 text-xs text-white/85">
-          {steps[rpaStep].detail}
-        </div>
-      </div>
-    );
-  }
-
-  // digital-experiences
-  return (
-    <div className="bg-[#111318] text-white p-4 border border-[#111318]">
-      <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
-        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
-          CONNECTED ECOSYSTEM
-        </span>
-        <div className="inline-flex border border-white/15 text-[10px] font-mono">
-          <button
-            type="button"
-            onClick={() => setDeviceMode("desktop")}
-            className={`px-2 py-0.5 inline-flex items-center gap-1 ${
-              deviceMode === "desktop" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"
-            }`}
-          >
-            <Monitor className="w-3 h-3" /> Desktop
-          </button>
-          <button
-            type="button"
-            onClick={() => setDeviceMode("mobile")}
-            className={`px-2 py-0.5 inline-flex items-center gap-1 ${
-              deviceMode === "mobile" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"
-            }`}
-          >
-            <Smartphone className="w-3 h-3" /> Mobile
-          </button>
-        </div>
-      </div>
-      {deviceMode === "desktop" ? (
-        <div className="space-y-2 text-xs">
-          <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
-            <span>WordPress + LMS Course Portal</span>
-            <span className="font-mono text-[10px] text-[#8291EA]">WEB</span>
-          </div>
-          <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
-            <span>ManyChat Social Qualification Sync</span>
-            <span className="font-mono text-[10px] text-white/70">AUTOMATED</span>
-          </div>
-        </div>
-      ) : (
-        <div className="p-3 bg-white/5 border border-[#8291EA]/40 text-xs flex items-center justify-between">
-          <span>Mobile-ready onboarding & learner access</span>
-          <span className="font-mono text-[10px] text-[#8291EA]">SYNCED</span>
-        </div>
-      )}
-    </div>
-  );
-}
 
 export function HeadquartersExperience({
   locale,
   dict,
 }: HeadquartersExperienceProps) {
-  const c = COPY[locale];
   const { reducedMotion } = useMediaPreferences();
-  const [webglFailed, setWebglFailed] = useState(false);
+  const [webglError, setWebglError] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const progressRef = useRef(0);
+  const [showHint, setShowHint] = useState(true);
 
-  const show3D = !reducedMotion && !webglFailed;
+  const progressRef = useRef(0);
+  const sectionRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
-    const onScroll = () => {
-      const scrollable =
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const docHeight =
         document.documentElement.scrollHeight - window.innerHeight;
-      const p =
-        scrollable > 0
-          ? Math.min(1, Math.max(0, window.scrollY / scrollable))
-          : 0;
+      const p = docHeight > 0 ? Math.max(0, Math.min(1, scrollY / docHeight)) : 0;
       progressRef.current = p;
-      const idx = Math.min(
-        c.spaces.length - 1,
-        Math.round(p * (c.spaces.length - 1))
-      );
-      setActiveIndex(idx);
+      setShowHint(scrollY < 60);
+
+      // Determine active room closest to viewport center
+      const centerY = window.innerHeight * 0.45;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      sectionRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        const dist = Math.abs(mid - centerY);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = idx;
+        }
+      });
+      setActiveIndex(bestIdx);
     };
 
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
-  }, [c.spaces.length]);
+  }, []);
 
-  const scrollToSection = (id: string) => {
+  const scrollToRoom = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
     }
   };
 
+  // Show a balanced set of 4 cross-industry projects in the Projects room card
+  const featuredProjects = projects.filter((p) =>
+    [
+      "chatbotpro",
+      "lexassist",
+      "rpa-business-process-automation",
+      "website-and-elearning-platform",
+    ].includes(p.slug)
+  );
+
   return (
-    <div
-      className={`relative ${
-        show3D ? "bg-transparent" : "bg-[#EAECEF]"
-      } text-[#111318]`}
-    >
+    <div className="relative bg-[#F7F6F2] text-[#4A5870]">
       {/* Fixed 3D Architectural Canvas */}
-      {show3D && (
+      {!webglError && (
         <HeadquartersCanvas
           progressRef={progressRef}
-          onWebGLError={() => setWebglFailed(true)}
+          reducedMotion={reducedMotion}
+          locale={locale}
+          onWebGLError={() => setWebglError(true)}
         />
       )}
 
-      {/* Right Architectural Space Navigation Rail (Desktop) */}
+      {/* Right-Side Step Rail (matching original HTML .rail) */}
       <nav
-        aria-label="Building spaces"
-        className="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-30 flex-col items-end gap-3"
+        aria-label={
+          locale === "fr" ? "Étapes de la visite" : "Building tour steps"
+        }
+        className="hidden md:grid fixed right-4 lg:right-6 top-1/2 -translate-y-1/2 z-30 gap-3"
       >
-        {c.spaces.map((space, idx) => {
-          const active = activeIndex === idx;
+        {ROOMS.map((room, idx) => {
+          const isActive = idx === activeIndex;
           return (
             <button
-              key={space.id}
+              key={room.id}
               type="button"
-              onClick={() => scrollToSection(space.id)}
-              className={`group flex items-center gap-3 transition-opacity ${
-                active ? "opacity-100" : "opacity-50 hover:opacity-95"
-              }`}
-              aria-label={space.label}
+              onClick={() => scrollToRoom(room.id)}
+              aria-label={room.title[locale]}
+              title={room.title[locale]}
+              className="group flex items-center justify-end gap-2.5 focus:outline-none"
             >
-              <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#111318] bg-white/88 backdrop-blur-sm px-2 py-0.5 border border-[#111318]/10">
-                0{idx + 1} · {space.label}
+              <span
+                className={`text-[11px] font-medium px-2 py-0.5 rounded-full transition-all duration-200 ${
+                  isActive
+                    ? "opacity-100 bg-[#142B52] text-white"
+                    : "opacity-0 group-hover:opacity-100 bg-white/90 text-[#142B52] border border-[#D8DFEC]"
+                }`}
+              >
+                {room.title[locale]}
               </span>
               <span
-                className={`w-2.5 h-2.5 border transition-colors ${
-                  active
-                    ? "bg-[#8291EA] border-[#8291EA]"
-                    : "bg-white/85 border-[#111318]/40"
+                className={`w-3 h-3 rounded-full border-2 transition-all duration-200 ${
+                  isActive
+                    ? "bg-[#245BDB] border-[#245BDB] scale-110"
+                    : "border-[#142B52] bg-white/60 hover:border-[#245BDB]"
                 }`}
               />
             </button>
@@ -484,210 +353,189 @@ export function HeadquartersExperience({
         })}
       </nav>
 
-      {/* Scrollable Architectural Spaces */}
+      {/* Scroll Hint Pill (matching original HTML .hint) */}
+      <div
+        className={`fixed bottom-5 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-opacity duration-400 ${
+          showHint ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-[#142B52] bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-[#D8DFEC] shadow-sm">
+          <ArrowDown className="w-3.5 h-3.5 text-[#245BDB]" />
+          <span>
+            {locale === "fr"
+              ? "Faites défiler pour entrer dans le bâtiment"
+              : "Scroll to enter the building"}
+          </span>
+        </div>
+      </div>
+
+      {/* Scroll-Synchronized Department Sections */}
       <div className="relative z-10">
-        {/* PHASE 1 — THE EXTERIOR */}
-        <section
-          id="exterior"
-          className="min-h-[92vh] flex items-end sm:items-center py-16 sm:py-24 px-5 sm:px-8 lg:px-12"
-        >
-          <div className="max-w-[1360px] w-full mx-auto">
-            <div className="max-w-xl bg-white/90 backdrop-blur-md border border-[#111318]/12 p-7 sm:p-10 shadow-[0_24px_60px_-24px_rgba(17,19,24,0.22)]">
-              <div className="flex items-center gap-2.5 mb-4">
-                <span className="w-2 h-2 bg-[#8291EA]" />
-                <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#8291EA]">
-                  {c.exteriorEyebrow}
-                </span>
-              </div>
+        {ROOMS.map((room, idx) => {
+          const isEntrance = room.id === "entrance";
+          const isProjects = room.id === "projects";
+          const isContact = room.id === "contact";
 
-              <h1 className="font-display text-3xl sm:text-5xl font-medium tracking-tight leading-[1.04] text-[#111318] mb-5">
-                {c.exteriorHeadline}
-              </h1>
-
-              <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed mb-8">
-                {c.exteriorBody}
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => scrollToSection("services")}
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#111318] text-white font-medium text-sm tracking-wide hover:bg-[#8291EA] hover:text-[#111318] transition-colors"
-                >
-                  <span>{c.enterBuilding}</span>
-                  <ArrowDown className="w-4 h-4" />
-                </button>
-                <Link
-                  href={getLocalizedPath("/work", locale)}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 border border-[#111318]/20 bg-white/75 text-[#111318] font-medium text-sm tracking-wide hover:border-[#111318] transition-colors"
-                >
-                  <span>{c.exploreWork}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* PHASE 2 — THE CENTRAL ATRIUM (#services anchor) */}
-        <section
-          id="services"
-          className="min-h-[95vh] flex items-center py-20 px-5 sm:px-8 lg:px-12 scroll-mt-20"
-        >
-          <div className="max-w-[1360px] w-full mx-auto">
-            <div className="max-w-3xl bg-white/90 backdrop-blur-md border border-[#111318]/12 p-7 sm:p-10 shadow-[0_24px_60px_-24px_rgba(17,19,24,0.2)]">
-              <p className="text-xs font-mono uppercase tracking-[0.18em] text-[#8291EA] mb-3">
-                02 / {c.atriumEyebrow}
-              </p>
-              <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight leading-[1.08] text-[#111318] mb-4">
-                {c.atriumTitle}
-              </h2>
-              <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed mb-8 max-w-2xl">
-                {c.atriumBody}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {WINGS.map((wing, idx) => {
-                  const Icon = WING_ICONS[idx] ?? Layers;
-                  return (
-                    <button
-                      key={wing.id}
-                      type="button"
-                      onClick={() => scrollToSection(wing.id)}
-                      className="text-left p-4 border border-[#111318]/12 bg-[#F5F5F2]/85 hover:bg-[#111318] hover:text-white group transition-colors"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-[11px] font-mono text-[#8291EA]">
-                          {wing.index} — {wing.name[locale]}
-                        </span>
-                        <Icon className="w-4 h-4 text-[#111318]/40 group-hover:text-[#8291EA] transition-colors" />
-                      </div>
-                      <p className="text-xs text-[#777777] group-hover:text-white/75 leading-relaxed transition-colors">
-                        {wing.subtitle[locale]}
-                      </p>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* PHASE 3 — FOUR INTERACTIVE INNOVATION SPACES */}
-        {WINGS.map((wing, idx) => {
-          const isRight = idx % 2 === 1;
           return (
             <section
-              key={wing.id}
-              id={wing.id}
-              className="min-h-[95vh] flex items-center py-20 px-5 sm:px-8 lg:px-12 scroll-mt-20"
+              key={room.id}
+              id={room.id}
+              ref={(el) => {
+                sectionRefs.current[idx] = el;
+              }}
+              className="min-h-screen flex items-end md:items-center px-4 sm:px-8 lg:px-16 pt-24 pb-16 md:py-24"
             >
               <div
-                className={`max-w-[1360px] w-full mx-auto flex ${
-                  isRight ? "justify-end" : "justify-start"
-                }`}
+                className={`${
+                  isContact ? "w-full max-w-[780px]" : "w-full max-w-[440px]"
+                } bg-white/88 backdrop-blur-md border border-[#D8DFEC] rounded-[20px] p-6 sm:p-7 shadow-[0_30px_60px_-30px_rgba(20,43,82,0.38)]`}
               >
-                <div className="w-full max-w-lg bg-white/92 backdrop-blur-md border border-[#111318]/12 p-7 sm:p-9 shadow-[0_24px_60px_-24px_rgba(17,19,24,0.22)]">
-                  <div className="flex items-center justify-between gap-4 mb-3">
-                    <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#8291EA]">
-                      {wing.index} — {wing.name[locale]}
-                    </span>
-                  </div>
-
-                  <h2 className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-[#111318] mb-5">
-                    {wing.subtitle[locale]}
-                  </h2>
-
-                  <div className="space-y-3 mb-5">
-                    <div className="p-3.5 bg-[#F5F5F2] border-l-2 border-[#111318]/25">
-                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#777777] block mb-1">
-                        {c.problemLabel}
-                      </span>
-                      <p className="text-sm text-[#4A5568] leading-relaxed">
-                        {wing.problem[locale]}
-                      </p>
+                {isEntrance ? (
+                  <>
+                    <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#245BDB] mb-3">
+                      <span className="w-2 h-2 rounded-full bg-[#245BDB]" />
+                      <span>{room.tag[locale]}</span>
                     </div>
-
-                    <div className="p-3.5 bg-[#F5F5F2] border-l-2 border-[#8291EA]">
-                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8291EA] block mb-1">
-                        {c.solutionLabel}
-                      </span>
-                      <p className="text-sm text-[#111318] leading-relaxed">
-                        {wing.solution[locale]}
-                      </p>
+                    <h1 className="font-display text-3xl sm:text-4xl lg:text-[46px] font-bold text-[#142B52] leading-[1.08] tracking-[-0.02em] mb-4">
+                      {room.title[locale]}
+                    </h1>
+                    <p className="text-[15px] sm:text-base text-[#4A5870] leading-relaxed mb-5">
+                      {room.description[locale]}
+                    </p>
+                    <ul className="grid gap-2 mb-6">
+                      {room.capabilities[locale].map((cap) => (
+                        <li
+                          key={cap}
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-[#E9EEF7] text-sm font-medium text-[#142B52]"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#245BDB] shrink-0" />
+                          <span>{cap}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => scrollToRoom("direction")}
+                        className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#142B52] hover:bg-[#245BDB] text-white text-sm font-medium transition-colors"
+                      >
+                        <span>
+                          {locale === "fr"
+                            ? "Entrer dans le bâtiment"
+                            : "Enter the building"}
+                        </span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                      <Link
+                        href={getLocalizedPath("/work", locale)}
+                        className="inline-flex items-center gap-1.5 px-4 py-3 rounded-full border border-[#D8DFEC] bg-white hover:border-[#245BDB] text-[#142B52] text-sm font-medium transition-colors"
+                      >
+                        <span>{dict.nav.work}</span>
+                        <ArrowUpRight className="w-4 h-4" />
+                      </Link>
                     </div>
-                  </div>
+                  </>
+                ) : isProjects ? (
+                  <>
+                    <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#245BDB] mb-1">
+                      {room.index} — {room.tag[locale]}
+                    </div>
+                    <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#142B52] leading-tight tracking-[-0.02em] mb-2">
+                      {room.title[locale]}
+                    </h2>
+                    <p className="text-sm sm:text-[15px] text-[#4A5870] leading-relaxed mb-4">
+                      {room.description[locale]}
+                    </p>
+                    <div className="grid gap-2 mb-5">
+                      {featuredProjects.map((proj) => (
+                        <Link
+                          key={proj.slug}
+                          href={getLocalizedPath(`/work/${proj.slug}`, locale)}
+                          className="group flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl bg-[#E9EEF7] hover:bg-[#dce6f8] transition-colors"
+                        >
+                          <div>
+                            <div className="text-sm font-semibold text-[#142B52] group-hover:text-[#245BDB] transition-colors">
+                              {proj.title[locale]}
+                            </div>
+                            <div className="text-xs text-[#4A5870]">
+                              {proj.category[locale]}
+                            </div>
+                          </div>
+                          <ArrowUpRight className="w-4 h-4 text-[#142B52] group-hover:text-[#245BDB] shrink-0" />
+                        </Link>
+                      ))}
+                    </div>
+                    {room.cta && (
+                      <Link
+                        href={getLocalizedPath(room.cta.href, locale)}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#142B52] hover:bg-[#245BDB] text-white text-sm font-medium transition-colors"
+                      >
+                        <span>{room.cta.label[locale]}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    )}
+                  </>
+                ) : isContact ? (
+                  <>
+                    <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#245BDB] mb-1">
+                      {room.index} — {room.tag[locale]}
+                    </div>
+                    <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#142B52] leading-tight tracking-[-0.02em] mb-2">
+                      {room.title[locale]}
+                    </h2>
+                    <p className="text-sm sm:text-[15px] text-[#4A5870] leading-relaxed mb-5">
+                      {room.description[locale]}
+                    </p>
 
-                  {/* Interactive Demonstration */}
-                  <div className="mb-6">
-                    <WingInteractiveDemo wingId={wing.id} locale={locale} />
-                  </div>
-
-                  <div className="pt-4 border-t border-[#111318]/10 flex flex-wrap items-center justify-between gap-3">
-                    <Link
-                      href={getLocalizedPath(wing.serviceHref, locale)}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.14em] text-[#111318] hover:text-[#8291EA] transition-colors"
-                    >
-                      <span>{c.viewService}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-
-                    <Link
-                      href={getLocalizedPath(wing.projectHref, locale)}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.14em] text-[#777777] hover:text-[#111318] transition-colors"
-                    >
-                      <span>{wing.projectLabel[locale]}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </section>
-          );
-        })}
-
-        {/* PHASE 4 — FINAL MEETING SPACE (#contact anchor) */}
-        <section
-          id="contact"
-          className="min-h-screen flex items-center py-20 px-5 sm:px-8 lg:px-12 scroll-mt-20"
-        >
-          <div className="max-w-[1360px] w-full mx-auto">
-            <div className="bg-[#111318]/95 backdrop-blur-md text-white border border-white/15 p-7 sm:p-12 shadow-[0_30px_70px_-24px_rgba(17,19,24,0.45)]">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-                <div className="lg:col-span-5">
-                  <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#8291EA] mb-4">
-                    {c.meetingEyebrow}
-                  </p>
-                  <h2 className="font-display text-3xl sm:text-5xl font-medium leading-[1.04] tracking-tight text-white mb-5">
-                    {c.meetingHeadline}
-                  </h2>
-                  <p className="text-sm sm:text-base text-white/75 leading-relaxed mb-8">
-                    {c.meetingBody}
-                  </p>
-
-                  <div className="flex items-start gap-3.5 p-4 border border-white/15 bg-white/5">
-                    <Mail className="w-4 h-4 text-[#8291EA] shrink-0 mt-1" />
-                    <div>
-                      <p className="text-[10px] font-mono uppercase tracking-[0.16em] text-white/50 mb-0.5">
-                        {c.directEmail}
-                      </p>
+                    <div className="mb-5 flex items-center gap-3 px-4 py-3 rounded-xl bg-[#E9EEF7] border border-[#D8DFEC]">
+                      <Mail className="w-4 h-4 text-[#245BDB] shrink-0" />
                       <a
                         href={`mailto:${dict.contactPage.emailValue}`}
-                        className="text-sm font-medium text-white hover:text-[#8291EA] transition-colors break-all"
+                        className="text-sm font-medium text-[#142B52] hover:text-[#245BDB] transition-colors break-all"
                       >
                         {dict.contactPage.emailValue}
                       </a>
                     </div>
-                  </div>
-                </div>
 
-                <div className="lg:col-span-7">
-                  <ContactForm dict={dict.contactPage.form} />
-                </div>
+                    <ContactForm dict={dict.contactPage.form} />
+                  </>
+                ) : (
+                  <>
+                    <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#245BDB] mb-1">
+                      {room.index} — {room.tag[locale]}
+                    </div>
+                    <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#142B52] leading-tight tracking-[-0.02em] mb-2">
+                      {room.title[locale]}
+                    </h2>
+                    <p className="text-sm sm:text-[15px] text-[#4A5870] leading-relaxed mb-4">
+                      {room.description[locale]}
+                    </p>
+                    <ul className="grid gap-2 mb-5">
+                      {room.capabilities[locale].map((cap) => (
+                        <li
+                          key={cap}
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-[#E9EEF7] text-sm font-medium text-[#142B52]"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#245BDB] shrink-0" />
+                          <span>{cap}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {room.cta && (
+                      <Link
+                        href={getLocalizedPath(room.cta.href, locale)}
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-[#142B52] hover:text-[#245BDB] transition-colors"
+                      >
+                        <span>{room.cta.label[locale]}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    )}
+                  </>
+                )}
               </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          );
+        })}
       </div>
     </div>
   );

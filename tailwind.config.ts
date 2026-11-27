@@ -10,13 +10,19 @@ const config: Config = {
     extend: {
       colors: {
         obsidian: "#111318",
-        ivory: "#F5F5F2",
+        ivory: "#F7F6F2",
         periwinkle: "#8291EA",
         slate: "#777777",
+        navy: "#142B52",
+        "brand-blue": "#245BDB",
+        "soft-blue": "#E9EEF7",
+        "ink-body": "#4A5870",
+        "line-border": "#D8DFEC",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-manrope)", "var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-space-grotesk)", "var(--font-manrope)", "system-ui", "sans-serif"],
+        grotesk: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         tightest: "-0.04em",

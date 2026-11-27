@@ -24,24 +24,17 @@ export function Navbar({ locale, dict }: NavbarProps) {
     setMobileOpen(false);
   }, [pathname]);
 
-  const experienceLabel = locale === "fr" ? "Siège 3D" : "3D HQ";
-
   const navItems = [
     { label: dict.nav.home, href: getLocalizedPath("/", locale), match: `/${locale}` },
     {
       label: dict.nav.services,
-      href: `${getLocalizedPath("/", locale)}#services`,
+      href: getLocalizedPath("/services", locale),
       match: `/${locale}/services`,
     },
     {
       label: dict.nav.work,
       href: getLocalizedPath("/work", locale),
       match: `/${locale}/work`,
-    },
-    {
-      label: experienceLabel,
-      href: getLocalizedPath("/experience", locale),
-      match: `/${locale}/experience`,
     },
     {
       label: dict.nav.about,
@@ -66,12 +59,12 @@ export function Navbar({ locale, dict }: NavbarProps) {
   const frPath = getLocalizedPath(pathname, "fr");
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#F5F5F2]/90 backdrop-blur-md border-b border-[#111318]/10">
+    <header className="sticky top-0 z-50 w-full bg-[#F7F6F2]/85 backdrop-blur-md border-b border-[#D8DFEC]">
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
         {/* Left: Logo */}
         <Link
           href={getLocalizedPath("/", locale)}
-          className="inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8291EA]"
+          className="inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#245BDB]"
           aria-label="KartagoTech Agency Home"
         >
           <BrandLogo variant="dark" size="sm" />
@@ -90,13 +83,13 @@ export function Navbar({ locale, dict }: NavbarProps) {
                 href={item.href}
                 className={`relative text-[13px] tracking-[0.04em] uppercase font-medium transition-colors duration-200 py-1 ${
                   active
-                    ? "text-[#111318]"
-                    : "text-[#777777] hover:text-[#111318]"
+                    ? "text-[#142B52]"
+                    : "text-[#4A5870] hover:text-[#245BDB]"
                 }`}
               >
                 {item.label}
                 {active && (
-                  <span className="absolute left-0 right-0 -bottom-0.5 h-[1.5px] bg-[#8291EA]" />
+                  <span className="absolute left-0 right-0 -bottom-0.5 h-[2px] bg-[#245BDB]" />
                 )}
               </Link>
             );
