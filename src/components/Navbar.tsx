@@ -43,7 +43,7 @@ export function Navbar({ locale, dict }: NavbarProps) {
     },
     {
       label: dict.nav.contact,
-      href: `${getLocalizedPath("/", locale)}#contact`,
+      href: getLocalizedPath("/contact", locale),
       match: `/${locale}/contact`,
     },
   ];
