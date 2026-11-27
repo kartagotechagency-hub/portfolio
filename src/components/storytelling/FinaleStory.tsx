@@ -41,8 +41,8 @@ export function FinaleStory({ locale, dict }: FinaleStoryProps) {
 
   return (
     <section
-      className="bg-[#111318] text-white py-20 sm:py-28"
-      id="contact-cta"
+      className="bg-[#111318] text-white py-20 sm:py-28 scroll-mt-20"
+      id="contact"
     >
       <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12">
         <FadeIn>

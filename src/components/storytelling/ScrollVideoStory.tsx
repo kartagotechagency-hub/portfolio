@@ -313,7 +313,7 @@ export function ScrollVideoStory({ locale, dict }: Props) {
         <ArrowRight className="w-4 h-4" />
       </Link>
       <a
-        href="#agency-overview"
+        href="#services"
         className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/35 text-white font-medium text-sm tracking-wide hover:border-white/70 transition-colors"
       >
         <span>{dict.home.services.exploreServices}</span>
@@ -442,19 +442,6 @@ export function ScrollVideoStory({ locale, dict }: Props) {
             className="absolute inset-0 z-[10] pointer-events-none bg-gradient-to-r from-[#111318]/50 via-transparent to-transparent hidden md:block"
             aria-hidden="true"
           />
-
-          {/* Top brand bar */}
-          <div className="absolute top-0 inset-x-0 z-[25] max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 pt-7 flex items-center justify-between pointer-events-none">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 bg-[#8291EA]" />
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/85">
-                KARTAGOTECH AGENCY
-              </span>
-            </div>
-            <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-white/50">
-              France · Worldwide
-            </span>
-          </div>
 
           {/* Text overlays — one per scene */}
           {SCENES.map((s, i) => {

@@ -62,18 +62,19 @@ export default function WorkPage({ params }: { params: { lang: string } }) {
         </div>
       </section>
 
-      {/* Project Gallery */}
+      {/* Project Gallery — All 7 Projects */}
       <section className="py-16 sm:py-24 bg-[#F5F5F2]">
-        <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 space-y-20 sm:space-y-28">
+        <div className="max-w-[1360px] mx-auto px-5 sm:px-8 lg:px-12 space-y-16 sm:space-y-24">
           {projects.map((project, idx) => (
-            <FadeIn key={project.slug} delay={idx * 0.05}>
+            <FadeIn key={project.slug} delay={Math.min(idx * 0.04, 0.16)}>
               <article className="bg-white border border-[#111318]/12 p-6 sm:p-10 lg:p-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
                   {/* Visual */}
-                  <div className="lg:col-span-7">
+                  <div className={`lg:col-span-7 ${idx % 2 !== 0 ? "lg:order-2" : ""}`}>
                     <Link
                       href={getLocalizedPath(`/work/${project.slug}`, locale)}
                       className="block"
+                      aria-label={`${dict.workPage.viewCaseStudy}: ${project.title[locale]}`}
                     >
                       <ProjectVisual
                         type={project.visualType}
@@ -82,8 +83,8 @@ export default function WorkPage({ params }: { params: { lang: string } }) {
                     </Link>
                   </div>
 
-                  {/* Metadata & Features */}
-                  <div className="lg:col-span-5 flex flex-col justify-between h-full">
+                  {/* Metadata, Problem, Solution, Features, Stack */}
+                  <div className={`lg:col-span-5 ${idx % 2 !== 0 ? "lg:order-1" : ""} flex flex-col justify-between h-full`}>
                     <div>
                       <div className="flex items-center justify-between gap-4 border-b border-[#111318]/10 pb-4 mb-5">
                         <span className="text-xs font-mono text-[#8291EA]">
@@ -103,15 +104,36 @@ export default function WorkPage({ params }: { params: { lang: string } }) {
                         </Link>
                       </h2>
 
-                      <p className="text-[#777777] text-base leading-relaxed mb-6">
+                      <p className="text-[#777777] text-sm sm:text-base leading-relaxed mb-5">
                         {project.shortDescription[locale]}
                       </p>
 
-                      <div className="mb-8">
-                        <h3 className="text-xs font-mono uppercase tracking-[0.14em] text-[#111318] mb-3">
+                      {/* Problem */}
+                      <div className="mb-4">
+                        <h3 className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA] mb-1">
+                          {dict.workPage.challengeLabel}
+                        </h3>
+                        <p className="text-sm text-[#777777] leading-relaxed">
+                          {project.challenge[locale]}
+                        </p>
+                      </div>
+
+                      {/* Solution */}
+                      <div className="mb-6">
+                        <h3 className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA] mb-1">
+                          {dict.workPage.solutionLabel}
+                        </h3>
+                        <p className="text-sm text-[#111318]/85 leading-relaxed">
+                          {project.solution[locale]}
+                        </p>
+                      </div>
+
+                      {/* Features */}
+                      <div className="mb-6">
+                        <h3 className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#111318] mb-2.5">
                           {dict.workPage.featuresLabel}
                         </h3>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5">
                           {project.features[locale].map((feature) => (
                             <li
                               key={feature}
@@ -123,9 +145,21 @@ export default function WorkPage({ params }: { params: { lang: string } }) {
                           ))}
                         </ul>
                       </div>
+
+                      {/* Technology Stack */}
+                      <div className="flex flex-wrap gap-2 mb-7">
+                        {project.stack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-[10px] font-mono uppercase tracking-[0.1em] px-2.5 py-1 border border-[#111318]/12 text-[#777777] bg-[#F5F5F2]"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    <div className="pt-6 border-t border-[#111318]/10 flex flex-wrap items-center justify-between gap-4">
+                    <div className="pt-5 border-t border-[#111318]/10 flex flex-wrap items-center justify-between gap-4">
                       <span className="text-[11px] font-mono uppercase tracking-[0.1em] text-[#777777]">
                         {project.status[locale]}
                       </span>

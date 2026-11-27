@@ -28,7 +28,7 @@ export function Navbar({ locale, dict }: NavbarProps) {
     { label: dict.nav.home, href: getLocalizedPath("/", locale), match: `/${locale}` },
     {
       label: dict.nav.services,
-      href: getLocalizedPath("/services", locale),
+      href: `${getLocalizedPath("/", locale)}#services`,
       match: `/${locale}/services`,
     },
     {
@@ -43,7 +43,7 @@ export function Navbar({ locale, dict }: NavbarProps) {
     },
     {
       label: dict.nav.contact,
-      href: getLocalizedPath("/contact", locale),
+      href: `${getLocalizedPath("/", locale)}#contact`,
       match: `/${locale}/contact`,
     },
   ];
