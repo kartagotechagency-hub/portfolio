@@ -24,6 +24,8 @@ export function Navbar({ locale, dict }: NavbarProps) {
     setMobileOpen(false);
   }, [pathname]);
 
+  const experienceLabel = locale === "fr" ? "Siège 3D" : "3D HQ";
+
   const navItems = [
     { label: dict.nav.home, href: getLocalizedPath("/", locale), match: `/${locale}` },
     {
@@ -35,6 +37,11 @@ export function Navbar({ locale, dict }: NavbarProps) {
       label: dict.nav.work,
       href: getLocalizedPath("/work", locale),
       match: `/${locale}/work`,
+    },
+    {
+      label: experienceLabel,
+      href: getLocalizedPath("/experience", locale),
+      match: `/${locale}/experience`,
     },
     {
       label: dict.nav.about,
