@@ -6,10 +6,12 @@ import Link from "next/link";
 import {
   ArrowDown,
   ArrowRight,
+  ArrowUpRight,
   Building2,
-  Cpu,
   Layers,
   Mail,
+  Monitor,
+  Smartphone,
   Sparkles,
   Workflow,
 } from "lucide-react";
@@ -39,19 +41,19 @@ type SpaceId =
   | "digital-experiences"
   | "contact";
 
-interface WingContent {
+interface WingMeta {
   id: SpaceId;
   index: string;
   name: Record<Locale, string>;
   subtitle: Record<Locale, string>;
   problem: Record<Locale, string>;
   solution: Record<Locale, string>;
-  interfaceTitle: string;
-  interfaceRows: Array<{ label: string; value: string; status: string }>;
   serviceHref: string;
+  projectHref: string;
+  projectLabel: Record<Locale, string>;
 }
 
-const WINGS: WingContent[] = [
+const WINGS: WingMeta[] = [
   {
     id: "software-studio",
     index: "01",
@@ -68,13 +70,9 @@ const WINGS: WingContent[] = [
       en: "We architect fast web platforms, multi-tenant SaaS products, and custom operational software tailored to your exact workflows.",
       fr: "Nous concevons des plateformes web rapides, des SaaS multi-locataires et des logiciels métier sur mesure adaptés à vos flux.",
     },
-    interfaceTitle: "PLATFORM ARCHITECTURE // STUDIO",
-    interfaceRows: [
-      { label: "Web & Corporate", value: "Next.js · Editorial & SEO-ready", status: "ACTIVE" },
-      { label: "Custom Systems", value: "Multi-tenant SaaS & Internal Portals", status: "SCALABLE" },
-      { label: "API Layer", value: "ERP, CRM & Payment Integrations", status: "SYNCED" },
-    ],
     serviceHref: "/services#custom-software",
+    projectHref: "/work/chatbotpro",
+    projectLabel: { en: "Case study: ChatbotPro", fr: "Étude de cas : ChatbotPro" },
   },
   {
     id: "ai-lab",
@@ -89,16 +87,12 @@ const WINGS: WingContent[] = [
       fr: "Les équipes perdent des heures à chercher dans des documents dispersés ou à répondre aux mêmes demandes.",
     },
     solution: {
-      en: "We deploy grounded RAG assistants with verifiable citations, embeddable website copilots, and real-time voice agents.",
+      en: "We deploy grounded RAG assistants with verifiable citations, embeddable copilots, and real-time voice agents.",
       fr: "Nous déployons des assistants RAG sourcés, des copilotes embarqués et des agents vocaux temps réel.",
     },
-    interfaceTitle: "INTELLIGENT SYSTEMS // AI LAB",
-    interfaceRows: [
-      { label: "Grounded RAG", value: "Local & Cloud Document Search + Citations", status: "VERIFIED" },
-      { label: "Conversational", value: "Embeddable Multi-Tenant AI Assistants", status: "EMBEDDED" },
-      { label: "Realtime Voice", value: "Asterisk SIP + OpenAI Realtime Bridge", status: "LOW-LATENCY" },
-    ],
     serviceHref: "/services#ai-automation",
+    projectHref: "/work/lexassist",
+    projectLabel: { en: "Case study: LexAssist", fr: "Étude de cas : LexAssist" },
   },
   {
     id: "automation-hub",
@@ -116,13 +110,9 @@ const WINGS: WingContent[] = [
       en: "We build deterministic RPA pipelines for browser workflows, document extraction, data sync, and scheduled reporting.",
       fr: "Nous bâtissons des pipelines RPA déterministes pour l'automatisation navigateur, l'extraction documentaire et le reporting.",
     },
-    interfaceTitle: "EXECUTION PIPELINE // RPA HUB",
-    interfaceRows: [
-      { label: "Browser Bots", value: "Automated Portal & Form Execution", status: "DETERMINISTIC" },
-      { label: "Document Engine", value: "PDF, Invoice & Spreadsheet Structuring", status: "PARSED" },
-      { label: "Reporting", value: "Scheduled Consolidation & Audit Logs", status: "SCHEDULED" },
-    ],
     serviceHref: "/services#rpa-automation",
+    projectHref: "/work/rpa-business-process-automation",
+    projectLabel: { en: "Case study: RPA Automation", fr: "Étude de cas : Automatisation RPA" },
   },
   {
     id: "digital-experiences",
@@ -140,37 +130,32 @@ const WINGS: WingContent[] = [
       en: "We unify disconnected tools into coherent, Swiss-grade digital ecosystems designed for clarity across desktop and mobile.",
       fr: "Nous unifions vos outils en écosystèmes digitaux cohérents, conçus pour la clarté sur ordinateur et mobile.",
     },
-    interfaceTitle: "CONNECTED ECOSYSTEM // EXPERIENCE",
-    interfaceRows: [
-      { label: "Unification", value: "Single Source of Truth Across Teams", status: "CONNECTED" },
-      { label: "Interface Craft", value: "Accessible, High-Speed Responsive UI", status: "OPTIMIZED" },
-      { label: "Modernization", value: "Step-by-Step Legacy Transition", status: "CONTROLLED" },
-    ],
     serviceHref: "/services#digital-transformation",
+    projectHref: "/work/website-and-elearning-platform",
+    projectLabel: { en: "Case study: Web & LMS", fr: "Étude de cas : Web & LMS" },
   },
 ];
 
 const COPY = {
   en: {
-    exteriorEyebrow: "KARTAGOTECH HEADQUARTERS",
+    exteriorEyebrow: "KARTAGOTECH AGENCY",
     exteriorHeadline: "A NEW WAY TO BUILD WHAT'S NEXT.",
     exteriorBody:
-      "We build custom software, practical AI solutions, and intelligent automation for ambitious businesses across France and worldwide.",
+      "We build custom software, practical AI solutions and intelligent automation for ambitious businesses.",
     enterBuilding: "Enter the building",
-    scrollCue: "Scroll to explore",
     atriumEyebrow: "CENTRAL ATRIUM",
-    atriumTitle: "Four innovation spaces. One engineering standard.",
+    atriumTitle: "Four innovation spaces. One technology ecosystem.",
     atriumBody:
-      "Step inside the KartagoTech ecosystem. Select a wing below or continue scrolling to explore how we solve real operational challenges.",
+      "Select an area below or continue scrolling to explore how software, AI, and automation come together.",
     exploreWork: "Explore selected work",
-    problemLabel: "Challenge",
-    solutionLabel: "Solution",
-    interfaceLabel: "System View",
-    viewService: "Service details",
+    problemLabel: "Business Challenge",
+    solutionLabel: "KartagoTech Solution",
+    demoLabel: "Interactive Demo",
+    viewService: "Explore service",
     meetingEyebrow: "FINAL MEETING SPACE",
     meetingHeadline: "LET'S BUILD WHAT'S NEXT.",
     meetingBody:
-      "Have a project, operational bottleneck, or digital transformation goal? Share your brief directly with our team.",
+      "Have a business challenge or an idea worth building? Let's find the right technology solution together.",
     directEmail: "Direct email",
     spaces: [
       { id: "exterior", label: "Exterior" },
@@ -183,25 +168,24 @@ const COPY = {
     ],
   },
   fr: {
-    exteriorEyebrow: "SIÈGE KARTAGOTECH",
+    exteriorEyebrow: "KARTAGOTECH AGENCY",
     exteriorHeadline: "UNE NOUVELLE FAÇON DE BÂTIR LA SUITE.",
     exteriorBody:
-      "Nous concevons des logiciels sur mesure, des solutions IA concrètes et des automatisations intelligentes pour les entreprises ambitieuses en France et à l'international.",
+      "Nous concevons des logiciels sur mesure, des solutions IA concrètes et des automatisations intelligentes pour les entreprises ambitieuses.",
     enterBuilding: "Entrer dans le bâtiment",
-    scrollCue: "Défiler pour visiter",
     atriumEyebrow: "ATRIUM CENTRAL",
-    atriumTitle: "Quatre espaces d'innovation. Une même exigence d'ingénierie.",
+    atriumTitle: "Quatre espaces d'innovation. Un écosystème technologique.",
     atriumBody:
-      "Explorez l'écosystème KartagoTech. Sélectionnez un espace ci-dessous ou poursuivez le défilement pour découvrir nos solutions.",
+      "Sélectionnez un espace ci-dessous ou poursuivez le défilement pour découvrir comment logiciel, IA et automatisation s'unissent.",
     exploreWork: "Découvrir nos projets",
-    problemLabel: "Enjeu",
-    solutionLabel: "Solution",
-    interfaceLabel: "Aperçu Système",
-    viewService: "Détails du service",
+    problemLabel: "Enjeu métier",
+    solutionLabel: "Solution KartagoTech",
+    demoLabel: "Démo interactive",
+    viewService: "Voir le service",
     meetingEyebrow: "ESPACE RÉUNION",
     meetingHeadline: "CONSTRUISONS LA SUITE.",
     meetingBody:
-      "Un projet, un blocage opérationnel ou un objectif de transformation digitale ? Partagez votre brief directement avec notre équipe.",
+      "Un défi métier ou une idée à concrétiser ? Trouvons ensemble la bonne solution technologique.",
     directEmail: "E-mail direct",
     spaces: [
       { id: "exterior", label: "Extérieur" },
@@ -217,6 +201,199 @@ const COPY = {
 
 const WING_ICONS = [Building2, Sparkles, Workflow, Layers];
 
+function WingInteractiveDemo({ wingId, locale }: { wingId: SpaceId; locale: Locale }) {
+  const [studioMode, setStudioMode] = useState<"saas" | "embed">("saas");
+  const [aiMode, setAiMode] = useState<"rag" | "voice">("rag");
+  const [rpaStep, setRpaStep] = useState<number>(0);
+  const [deviceMode, setDeviceMode] = useState<"desktop" | "mobile">("desktop");
+
+  if (wingId === "software-studio") {
+    return (
+      <div className="bg-[#111318] text-white p-4 border border-[#111318]">
+        <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
+          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
+            MULTI-TENANT SAAS // STUDIO
+          </span>
+          <div className="inline-flex border border-white/15 text-[10px] font-mono">
+            <button
+              type="button"
+              onClick={() => setStudioMode("saas")}
+              className={`px-2 py-0.5 ${studioMode === "saas" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
+            >
+              Workspace
+            </button>
+            <button
+              type="button"
+              onClick={() => setStudioMode("embed")}
+              className={`px-2 py-0.5 ${studioMode === "embed" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
+            >
+              HTML/JS Embed
+            </button>
+          </div>
+        </div>
+        {studioMode === "saas" ? (
+          <div className="space-y-2 text-xs">
+            <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
+              <span className="text-white/80">Tenant Isolation & Roles</span>
+              <span className="font-mono text-[10px] text-[#8291EA]">ACTIVE</span>
+            </div>
+            <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
+              <span className="text-white/80">Operational API & Webhooks</span>
+              <span className="font-mono text-[10px] text-white/60">REST / TS</span>
+            </div>
+          </div>
+        ) : (
+          <div className="p-3 bg-[#1A1D24] border border-[#8291EA]/40 font-mono text-[11px] text-white/85 leading-relaxed">
+            {`<script src="cdn.chatbotpro.io/w.js"`}
+            <br />
+            {`  data-tenant="org_94a2" async />`}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (wingId === "ai-lab") {
+    return (
+      <div className="bg-[#111318] text-white p-4 border border-[#111318]">
+        <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
+          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
+            AI LAB // LIVE SYSTEM VIEW
+          </span>
+          <div className="inline-flex border border-white/15 text-[10px] font-mono">
+            <button
+              type="button"
+              onClick={() => setAiMode("rag")}
+              className={`px-2 py-0.5 ${aiMode === "rag" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
+            >
+              Local RAG
+            </button>
+            <button
+              type="button"
+              onClick={() => setAiMode("voice")}
+              className={`px-2 py-0.5 ${aiMode === "voice" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"}`}
+            >
+              Voice SIP
+            </button>
+          </div>
+        </div>
+        {aiMode === "rag" ? (
+          <div className="space-y-2 text-xs">
+            <p className="text-white/60 font-mono text-[10px]">
+              {locale === "fr" ? "REQUÊTE :" : "QUERY:"} &quot;Notice period for renewal?&quot;
+            </p>
+            <div className="p-2.5 bg-white/5 border border-white/10">
+              <p className="text-white/90 leading-relaxed">
+                90 days written delivery required prior to renewal.
+              </p>
+              <p className="mt-1.5 text-[10px] font-mono text-[#8291EA]">
+                CITE: Lease_Agreement.pdf · Page 12, Clause 4.2
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-2 text-xs">
+            <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
+              <span>Asterisk SIP Trunk → FastAPI WS</span>
+              <span className="font-mono text-[10px] text-[#8291EA]">FULL-DUPLEX</span>
+            </div>
+            <div className="p-2.5 bg-[#8291EA]/15 border border-[#8291EA]/40 flex justify-between">
+              <span>OpenAI Realtime Streaming + VAD</span>
+              <span className="font-mono text-[10px] text-white">LOW LATENCY</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (wingId === "automation-hub") {
+    const steps = [
+      { label: "01. Browser Capture", detail: "Headless portal navigation & form extraction" },
+      { label: "02. Document Parsing", detail: "Structured PDF, invoice & XLS field extraction" },
+      { label: "03. Validation & Sync", detail: "Idempotent checks across ERP & CRM targets" },
+      { label: "04. Scheduled Report", detail: "Automated CSV/PDF audit summary delivery" },
+    ];
+    return (
+      <div className="bg-[#111318] text-white p-4 border border-[#111318]">
+        <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
+          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
+            RPA PIPELINE // STEP INSPECTOR
+          </span>
+          <span className="text-[10px] font-mono text-white/50">CLICK STEP</span>
+        </div>
+        <div className="grid grid-cols-2 gap-1.5 mb-2.5">
+          {steps.map((s, idx) => (
+            <button
+              key={s.label}
+              type="button"
+              onClick={() => setRpaStep(idx)}
+              className={`text-left px-2.5 py-2 text-[10px] font-mono border transition-colors ${
+                rpaStep === idx
+                  ? "border-[#8291EA] bg-[#8291EA]/20 text-white"
+                  : "border-white/10 bg-white/5 text-white/60 hover:text-white"
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+        <div className="p-2.5 bg-white/5 border border-white/10 text-xs text-white/85">
+          {steps[rpaStep].detail}
+        </div>
+      </div>
+    );
+  }
+
+  // digital-experiences
+  return (
+    <div className="bg-[#111318] text-white p-4 border border-[#111318]">
+      <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
+        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
+          CONNECTED ECOSYSTEM
+        </span>
+        <div className="inline-flex border border-white/15 text-[10px] font-mono">
+          <button
+            type="button"
+            onClick={() => setDeviceMode("desktop")}
+            className={`px-2 py-0.5 inline-flex items-center gap-1 ${
+              deviceMode === "desktop" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"
+            }`}
+          >
+            <Monitor className="w-3 h-3" /> Desktop
+          </button>
+          <button
+            type="button"
+            onClick={() => setDeviceMode("mobile")}
+            className={`px-2 py-0.5 inline-flex items-center gap-1 ${
+              deviceMode === "mobile" ? "bg-[#8291EA] text-[#111318]" : "text-white/60"
+            }`}
+          >
+            <Smartphone className="w-3 h-3" /> Mobile
+          </button>
+        </div>
+      </div>
+      {deviceMode === "desktop" ? (
+        <div className="space-y-2 text-xs">
+          <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
+            <span>WordPress + LMS Course Portal</span>
+            <span className="font-mono text-[10px] text-[#8291EA]">WEB</span>
+          </div>
+          <div className="p-2.5 bg-white/5 border border-white/10 flex justify-between">
+            <span>ManyChat Social Qualification Sync</span>
+            <span className="font-mono text-[10px] text-white/70">AUTOMATED</span>
+          </div>
+        </div>
+      ) : (
+        <div className="p-3 bg-white/5 border border-[#8291EA]/40 text-xs flex items-center justify-between">
+          <span>Mobile-ready onboarding & learner access</span>
+          <span className="font-mono text-[10px] text-[#8291EA]">SYNCED</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function HeadquartersExperience({
   locale,
   dict,
@@ -225,9 +402,6 @@ export function HeadquartersExperience({
   const { reducedMotion } = useMediaPreferences();
   const [webglFailed, setWebglFailed] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState<
-    Record<string, "overview" | "interface">
-  >({});
   const progressRef = useRef(0);
 
   const show3D = !reducedMotion && !webglFailed;
@@ -236,9 +410,15 @@ export function HeadquartersExperience({
     const onScroll = () => {
       const scrollable =
         document.documentElement.scrollHeight - window.innerHeight;
-      const p = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      const p =
+        scrollable > 0
+          ? Math.min(1, Math.max(0, window.scrollY / scrollable))
+          : 0;
       progressRef.current = p;
-      const idx = Math.min(c.spaces.length - 1, Math.round(p * (c.spaces.length - 1)));
+      const idx = Math.min(
+        c.spaces.length - 1,
+        Math.round(p * (c.spaces.length - 1))
+      );
       setActiveIndex(idx);
     };
 
@@ -261,7 +441,7 @@ export function HeadquartersExperience({
   return (
     <div
       className={`relative ${
-        show3D ? "bg-transparent" : "bg-[#ECEEF2]"
+        show3D ? "bg-transparent" : "bg-[#EAECEF]"
       } text-[#111318]`}
     >
       {/* Fixed 3D Architectural Canvas */}
@@ -272,10 +452,10 @@ export function HeadquartersExperience({
         />
       )}
 
-      {/* Right Architectural Space Navigation Rail */}
+      {/* Right Architectural Space Navigation Rail (Desktop) */}
       <nav
         aria-label="Building spaces"
-        className="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-30 flex-col items-end gap-3.5"
+        className="hidden lg:flex fixed right-8 top-1/2 -translate-y-1/2 z-30 flex-col items-end gap-3"
       >
         {c.spaces.map((space, idx) => {
           const active = activeIndex === idx;
@@ -285,18 +465,18 @@ export function HeadquartersExperience({
               type="button"
               onClick={() => scrollToSection(space.id)}
               className={`group flex items-center gap-3 transition-opacity ${
-                active ? "opacity-100" : "opacity-45 hover:opacity-90"
+                active ? "opacity-100" : "opacity-50 hover:opacity-95"
               }`}
               aria-label={space.label}
             >
-              <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#111318] bg-white/85 backdrop-blur-sm px-2 py-0.5 border border-[#111318]/10">
+              <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#111318] bg-white/88 backdrop-blur-sm px-2 py-0.5 border border-[#111318]/10">
                 0{idx + 1} · {space.label}
               </span>
               <span
                 className={`w-2.5 h-2.5 border transition-colors ${
                   active
                     ? "bg-[#8291EA] border-[#8291EA]"
-                    : "bg-white/80 border-[#111318]/40"
+                    : "bg-white/85 border-[#111318]/40"
                 }`}
               />
             </button>
@@ -304,15 +484,15 @@ export function HeadquartersExperience({
         })}
       </nav>
 
-      {/* Scrollable Architectural Rooms */}
+      {/* Scrollable Architectural Spaces */}
       <div className="relative z-10">
-        {/* 1. EXTERIOR / HERO */}
+        {/* PHASE 1 — THE EXTERIOR */}
         <section
           id="exterior"
           className="min-h-[92vh] flex items-end sm:items-center py-16 sm:py-24 px-5 sm:px-8 lg:px-12"
         >
           <div className="max-w-[1360px] w-full mx-auto">
-            <div className="max-w-xl bg-white/88 backdrop-blur-md border border-[#111318]/12 p-7 sm:p-10 shadow-[0_24px_60px_-24px_rgba(17,19,24,0.22)]">
+            <div className="max-w-xl bg-white/90 backdrop-blur-md border border-[#111318]/12 p-7 sm:p-10 shadow-[0_24px_60px_-24px_rgba(17,19,24,0.22)]">
               <div className="flex items-center gap-2.5 mb-4">
                 <span className="w-2 h-2 bg-[#8291EA]" />
                 <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#8291EA]">
@@ -339,7 +519,7 @@ export function HeadquartersExperience({
                 </button>
                 <Link
                   href={getLocalizedPath("/work", locale)}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 border border-[#111318]/20 bg-white/70 text-[#111318] font-medium text-sm tracking-wide hover:border-[#111318] transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 border border-[#111318]/20 bg-white/75 text-[#111318] font-medium text-sm tracking-wide hover:border-[#111318] transition-colors"
                 >
                   <span>{c.exploreWork}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -349,7 +529,7 @@ export function HeadquartersExperience({
           </div>
         </section>
 
-        {/* 2. CENTRAL ATRIUM (#services anchor) */}
+        {/* PHASE 2 — THE CENTRAL ATRIUM (#services anchor) */}
         <section
           id="services"
           className="min-h-[95vh] flex items-center py-20 px-5 sm:px-8 lg:px-12 scroll-mt-20"
@@ -366,27 +546,23 @@ export function HeadquartersExperience({
                 {c.atriumBody}
               </p>
 
-              {/* Interactive 4-Wing Directory */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {WINGS.map((wing, idx) => {
-                  const Icon = WING_ICONS[idx] ?? Cpu;
+                  const Icon = WING_ICONS[idx] ?? Layers;
                   return (
                     <button
                       key={wing.id}
                       type="button"
                       onClick={() => scrollToSection(wing.id)}
-                      className="text-left p-4 border border-[#111318]/12 bg-[#F5F5F2]/80 hover:bg-[#111318] hover:text-white group transition-colors"
+                      className="text-left p-4 border border-[#111318]/12 bg-[#F5F5F2]/85 hover:bg-[#111318] hover:text-white group transition-colors"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[11px] font-mono text-[#8291EA]">
-                          {wing.index}
+                          {wing.index} — {wing.name[locale]}
                         </span>
                         <Icon className="w-4 h-4 text-[#111318]/40 group-hover:text-[#8291EA] transition-colors" />
                       </div>
-                      <p className="font-display text-base font-medium mb-1">
-                        {wing.name[locale]}
-                      </p>
-                      <p className="text-xs text-[#777777] group-hover:text-white/70 leading-relaxed transition-colors">
+                      <p className="text-xs text-[#777777] group-hover:text-white/75 leading-relaxed transition-colors">
                         {wing.subtitle[locale]}
                       </p>
                     </button>
@@ -397,11 +573,9 @@ export function HeadquartersExperience({
           </div>
         </section>
 
-        {/* 3–6. FOUR INNOVATION SPACES */}
+        {/* PHASE 3 — FOUR INTERACTIVE INNOVATION SPACES */}
         {WINGS.map((wing, idx) => {
           const isRight = idx % 2 === 1;
-          const mode = activeTab[wing.id] ?? "overview";
-
           return (
             <section
               key={wing.id}
@@ -414,127 +588,56 @@ export function HeadquartersExperience({
                 }`}
               >
                 <div className="w-full max-w-lg bg-white/92 backdrop-blur-md border border-[#111318]/12 p-7 sm:p-9 shadow-[0_24px_60px_-24px_rgba(17,19,24,0.22)]">
-                  <div className="flex items-center justify-between gap-4 mb-4">
+                  <div className="flex items-center justify-between gap-4 mb-3">
                     <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#8291EA]">
-                      WING {wing.index}
+                      {wing.index} — {wing.name[locale]}
                     </span>
+                  </div>
 
-                    {/* Interactive Tab Switcher */}
-                    <div
-                      className="inline-flex border border-[#111318]/15 bg-[#F5F5F2] text-[11px] font-mono"
-                      role="tablist"
-                    >
-                      <button
-                        type="button"
-                        role="tab"
-                        aria-selected={mode === "overview"}
-                        onClick={() =>
-                          setActiveTab((prev) => ({
-                            ...prev,
-                            [wing.id]: "overview",
-                          }))
-                        }
-                        className={`px-2.5 py-1 transition-colors ${
-                          mode === "overview"
-                            ? "bg-[#111318] text-white"
-                            : "text-[#777777] hover:text-[#111318]"
-                        }`}
-                      >
+                  <h2 className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-[#111318] mb-5">
+                    {wing.subtitle[locale]}
+                  </h2>
+
+                  <div className="space-y-3 mb-5">
+                    <div className="p-3.5 bg-[#F5F5F2] border-l-2 border-[#111318]/25">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#777777] block mb-1">
+                        {c.problemLabel}
+                      </span>
+                      <p className="text-sm text-[#4A5568] leading-relaxed">
+                        {wing.problem[locale]}
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 bg-[#F5F5F2] border-l-2 border-[#8291EA]">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8291EA] block mb-1">
                         {c.solutionLabel}
-                      </button>
-                      <button
-                        type="button"
-                        role="tab"
-                        aria-selected={mode === "interface"}
-                        onClick={() =>
-                          setActiveTab((prev) => ({
-                            ...prev,
-                            [wing.id]: "interface",
-                          }))
-                        }
-                        className={`px-2.5 py-1 transition-colors ${
-                          mode === "interface"
-                            ? "bg-[#111318] text-white"
-                            : "text-[#777777] hover:text-[#111318]"
-                        }`}
-                      >
-                        {c.interfaceLabel}
-                      </button>
+                      </span>
+                      <p className="text-sm text-[#111318] leading-relaxed">
+                        {wing.solution[locale]}
+                      </p>
                     </div>
                   </div>
 
-                  <h2 className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-[#111318] mb-2">
-                    {wing.name[locale]}
-                  </h2>
-                  <p className="text-sm text-[#777777] mb-6">
-                    {wing.subtitle[locale]}
-                  </p>
-
-                  {mode === "overview" ? (
-                    <div className="space-y-4 mb-7">
-                      <div className="p-4 bg-[#F5F5F2] border-l-2 border-[#111318]/25">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#777777] block mb-1">
-                          {c.problemLabel}
-                        </span>
-                        <p className="text-sm text-[#4A5568] leading-relaxed">
-                          {wing.problem[locale]}
-                        </p>
-                      </div>
-
-                      <div className="p-4 bg-[#111318] text-white border-l-2 border-[#8291EA]">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-[#8291EA] block mb-1">
-                          {c.solutionLabel}
-                        </span>
-                        <p className="text-sm text-white/90 leading-relaxed">
-                          {wing.solution[locale]}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="mb-7 bg-[#111318] text-white p-4 border border-[#111318]">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#8291EA]">
-                          {wing.interfaceTitle}
-                        </span>
-                        <span className="w-2 h-2 bg-[#8291EA]" />
-                      </div>
-                      <div className="space-y-2.5">
-                        {wing.interfaceRows.map((row) => (
-                          <div
-                            key={row.label}
-                            className="p-2.5 bg-white/5 border border-white/10 flex items-center justify-between gap-3"
-                          >
-                            <div>
-                              <p className="text-[10px] font-mono text-white/50">
-                                {row.label}
-                              </p>
-                              <p className="text-xs font-medium text-white/95">
-                                {row.value}
-                              </p>
-                            </div>
-                            <span className="text-[9px] font-mono px-1.5 py-0.5 bg-[#8291EA]/20 text-[#8291EA] shrink-0">
-                              {row.status}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  {/* Interactive Demonstration */}
+                  <div className="mb-6">
+                    <WingInteractiveDemo wingId={wing.id} locale={locale} />
+                  </div>
 
                   <div className="pt-4 border-t border-[#111318]/10 flex flex-wrap items-center justify-between gap-3">
                     <Link
                       href={getLocalizedPath(wing.serviceHref, locale)}
-                      className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.14em] text-[#111318] hover:text-[#8291EA] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.14em] text-[#111318] hover:text-[#8291EA] transition-colors"
                     >
                       <span>{c.viewService}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
 
                     <Link
-                      href={getLocalizedPath("/work", locale)}
-                      className="text-xs font-mono uppercase tracking-[0.14em] text-[#777777] hover:text-[#111318] transition-colors"
+                      href={getLocalizedPath(wing.projectHref, locale)}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.14em] text-[#777777] hover:text-[#111318] transition-colors"
                     >
-                      {c.exploreWork} →
+                      <span>{wing.projectLabel[locale]}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
@@ -543,7 +646,7 @@ export function HeadquartersExperience({
           );
         })}
 
-        {/* 7. FINAL MEETING SPACE (#contact anchor) */}
+        {/* PHASE 4 — FINAL MEETING SPACE (#contact anchor) */}
         <section
           id="contact"
           className="min-h-screen flex items-center py-20 px-5 sm:px-8 lg:px-12 scroll-mt-20"
